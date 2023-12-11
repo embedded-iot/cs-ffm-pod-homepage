@@ -1,0 +1,27 @@
+@import 'scss/style';
+.product-detail-page {
+  &__wrapper {
+    margin: 0px auto;
+    padding: 24px 16px;
+    max-width: 1360px !important;
+    .page-contents {
+      @include media_mobile {
+        padding: 16px;
+      }
+    }
+  }
+  &__breadcrumb.ant-breadcrumb {
+    margin-bottom: 16px;
+    .ant-breadcrumb-link {
+      a, span {
+        font-size: 14px;
+        line-height: 150%;
+        color: rgb(111, 111, 105);
+        cursor: pointer;
+        &:hover {
+          color: var(--color-primary);
+        }
+      }
+    }
+  }
+}

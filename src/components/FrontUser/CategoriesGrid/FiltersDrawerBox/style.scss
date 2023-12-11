@@ -1,0 +1,38 @@
+.filters-drawer-box {
+  &__wrapper {
+    .ant-drawer-header-title {
+      padding: 0 16px;
+      height: 64px;
+    }
+    .ant-drawer-content-wrapper {
+      height: 100% !important;
+    }
+    .ant-drawer-header {
+      padding: 0;
+    }
+  }
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__filter-label {
+    color: #10110d ;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  &__filter-item {
+    margin-bottom: 20px;
+  }
+  &__filters-contents {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+  }
+  &__filters-list {
+    flex-grow: 1;
+  }
+  &__footer {
+    height: 45px;
+  }
+}

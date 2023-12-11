@@ -1,0 +1,19 @@
+@import 'scss/style';
+.static-blogs-page {
+  &__wrapper {
+    width: 100%;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    .page-contents {
+      width: 100%;
+      max-width: 872px;
+      @include media_mobile {
+        padding: 16px;
+        .box-header__wrapper {
+          margin-bottom: 0 !important;
+        }
+      }
+    }
+  }
+}

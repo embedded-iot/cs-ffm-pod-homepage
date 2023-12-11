@@ -1,0 +1,10 @@
+@import 'scss/style';
+.blogs-grid {
+  &__wrapper {
+    @include media_mobile {
+      .pagination-box {
+        justify-content: center;
+      }
+    }
+  }
+}

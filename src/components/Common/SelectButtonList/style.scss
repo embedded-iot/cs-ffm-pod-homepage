@@ -1,0 +1,9 @@
+.select-button-list {
+  &__wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+}

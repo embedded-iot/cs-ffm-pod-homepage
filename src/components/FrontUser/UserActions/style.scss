@@ -1,0 +1,36 @@
+.user-action {
+  &__wrapper {
+    display: flex;
+    flex-flow: nowrap;
+    align-items: center;
+    button {
+      margin-left: 24px;
+      box-shadow: none;
+      &.ant-btn-default {
+        background: #F7F8F9;
+        border: none;
+        color: #44546F;
+      }
+    }
+    &--mobile {
+      display: flex;
+      justify-content: center;
+      flex-grow: 1;
+      button {
+        margin: 15px 0 0;
+        background: #F1F2F4 !important;
+        width: 100%;
+        height: 36px;
+        &:last-of-type {
+          margin-top: 15px;
+        }
+      }
+    }
+  }
+  &__search-button {
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    font-weight: normal !important;
+  }
+}

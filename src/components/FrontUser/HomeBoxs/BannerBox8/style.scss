@@ -1,0 +1,39 @@
+@import 'scss/style';
+.banner-box-6 {
+  &__wrapper {
+    background: #FFF;
+    .pagination-box {
+      justify-content: center;
+      margin-top: 40px;
+      @include media_mobile {
+        margin-top: 16px;
+      }
+    }
+  }
+  &__center-box {
+    display: flex;
+    justify-content: center;
+  }
+  &__contents {
+    max-width: 100%;
+    text-align: center;
+  }
+  &__title {
+    color: #10110D;
+    font-size: var(--title-font-size);
+    font-weight: bold;
+    line-height:var(--title-line-height);
+  }
+  &__description {
+    color: #10110D;
+    margin-top: 24px;
+    font-size: var(--description-font-size);
+    line-height: var(--description-line-height);
+  }
+  &__blog-list {
+    margin-top: 64px;
+    @include media_mobile {
+      margin-top: 32px;
+    }
+  }
+}

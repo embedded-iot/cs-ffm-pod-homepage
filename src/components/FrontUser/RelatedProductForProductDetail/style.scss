@@ -1,0 +1,15 @@
+@import 'scss/style';
+.related-product-for-product-detail {
+  &__wrapper {
+    margin-top: 80px;
+    @include media_mobile {
+      margin-top: 32px;
+    }
+  }
+  &__title {
+    font-weight: 600;
+    font-size: 24px;
+    color: rgb(16, 17, 13);
+    margin-bottom: 24px;
+  }
+}

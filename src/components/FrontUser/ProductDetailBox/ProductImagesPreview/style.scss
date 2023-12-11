@@ -1,0 +1,11 @@
+.product-image-preview {
+  &__wrapper {
+    .image-gallery-thumbnail {
+      border: 2px solid transparent;
+      max-width: 88px;
+      &.active, &:hover {
+        border: 2px solid var(--color-primary) !important;
+      }
+    }
+  }
+}

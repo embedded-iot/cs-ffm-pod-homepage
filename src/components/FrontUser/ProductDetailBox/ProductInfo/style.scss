@@ -1,0 +1,68 @@
+@import 'scss/style';
+.product-info {
+  &__wrapper {
+    color: rgb(16, 17, 13);
+  }
+  &__title {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 140%;
+    margin-bottom: 16px;
+  }
+  &__price {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 140%;
+    margin-bottom: 20px;
+  }
+  &__sku {
+    margin-bottom: 16px;
+  }
+  &__options-wrapper {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 8px;
+  }
+  &__option-title {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 24px;
+    margin-top: 8px;
+  }
+  &__option-list {
+    display: flex;
+    gap: 10px;
+    flex-flow: wrap;
+  }
+  &__option-item {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0px 11px;
+    border-radius: 4px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(202, 202, 202);
+    cursor: pointer;
+    &--selected, &:hover {
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+    }
+  }
+  &__note {
+    background: #F1F2F4;
+    border-radius: 16px;
+    padding: 25px 21px;
+    color: #2C3E5D;
+  }
+  &__description {
+    margin-bottom: 16px;
+  }
+  &__button-list {
+    button {
+      height: 56px;
+      @include media_mobile {
+        width: 100%;
+      }
+    }
+  }
+}

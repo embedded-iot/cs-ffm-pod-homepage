@@ -1,0 +1,31 @@
+@import 'scss/style';
+.top-categories{
+    &__wrapper  {
+    }
+    &__item  {
+      position: relative;
+      height: 100%;
+      cursor: pointer;
+    }
+    &__img  {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    &__label  {
+      position: absolute;
+      bottom: 16px;
+      left: 0;
+      max-width: 100%;
+      padding-left: 24px;
+      word-break: break-word;
+      font-size: 24px;
+      font-weight: bold;
+      @include media_mobile {
+        padding-left: 14px;
+        font-size: 20px;
+        bottom: 8px;
+      }
+    }
+  }

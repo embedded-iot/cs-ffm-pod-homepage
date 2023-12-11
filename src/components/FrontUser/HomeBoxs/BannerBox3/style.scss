@@ -1,0 +1,49 @@
+@import 'scss/style';
+.banner-box-3 {
+  &__wrapper {
+    padding: 30px;
+    background: url("/public/images/home/home-7.png") center center no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+  }
+  &__content {
+    //min-height: 227px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    gap: 16px;
+
+    width: 100%;
+    @include media_mobile {
+      max-width: 100%;
+      gap: 10px;
+    }
+    @include media_tablet {
+      max-width: 1296px;
+    }
+    @include media_desktop {
+      max-width: 1500px;
+    }
+  }
+  &__item-header {
+    color: var(--color-primary);
+    font-size: var(--description-font-size);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  &__item-title {
+    color: #FDFCFB;
+    font-size: var(--title-font-size);
+    font-weight: bold;
+    line-height:var(--title-line-height);
+  }
+  &__item-description {
+    color: #FDFCFB;
+    font-size: var(--description-font-size);
+    font-style: normal;
+    line-height: var(--description-line-height);
+  }
+}

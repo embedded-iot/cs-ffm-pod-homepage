@@ -1,0 +1,52 @@
+@import 'scss/style';
+.banner-box-4 {
+  &__wrapper {
+    padding: 91px 70px;
+    background: #F5F2EF;
+    display: flex;
+    flex-flow: column;
+    gap: 64px;
+
+    @include media_mobile {
+      gap: 32px;
+      padding: 30px 16px;
+    }
+  }
+  &__contents {
+    text-align: center;
+  }
+  &__title {
+    color: #10110D;
+    font-size: var(--title-font-size);
+    font-weight: bold;
+    line-height:var(--title-line-height);
+  }
+  &__description {
+    color: #10110D;
+    margin-top: 24px;
+    font-size: var(--description-font-size);
+    line-height: var(--description-line-height);
+  }
+  &__brand-list {
+    width: 100%;
+  }
+  &__content {
+    padding: 23px 35px;
+    min-height: 150px;
+    background: #FDFCFB;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    @include media_tablet {
+      padding: 16px 20px;
+    }
+    @include media_mobile {
+      min-height: unset;
+      padding: 16px;
+    }
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}

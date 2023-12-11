@@ -1,0 +1,62 @@
+@import 'scss/style';
+.banner-box-7 {
+  &__wrapper {
+    padding: 65px;
+    background: url("/public/images/home/home-15.png") center center no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    align-items: center;
+    gap: 64px;
+    @include media_mobile {
+      padding: 20px 16px;
+      gap: 32px;
+    }
+  }
+  &__list {
+    width: 100%;
+    @include media_mobile {
+      max-width: 100%;
+    }
+    @include media_tablet {
+      max-width: 1296px;
+    }
+    @include media_desktop {
+      max-width: 1500px;
+    }
+  }
+  &__contents {
+    text-align: center;
+  }
+  &__title {
+    color: #FDFCFB;
+    font-size: var(--title-font-size);
+    font-weight: bold;
+    line-height: var(--title-line-height);
+  }
+  &__description {
+    color: #FDFCFB;
+    margin-top: 24px;
+    font-size: var(--description-font-size);
+    line-height: var(--description-line-height);
+  }
+  &__content {
+    display: flex;
+    flex-flow: column;
+    gap: 8px;
+  }
+  &__item-title {
+    color: #FDFCFB;
+    font-size: var(--description-font-size);
+    font-style: normal;
+    font-weight: bold;
+    line-height: var(--description-line-height);
+  }
+  &__item-description {
+    color: #FDFCFB;
+    font-size: var(--description-font-size);
+    font-style: normal;
+    line-height: var(--description-line-height);
+  }
+}

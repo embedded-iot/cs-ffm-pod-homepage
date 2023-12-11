@@ -1,0 +1,34 @@
+@import 'scss/style';
+.categories-grid {
+  &__wrapper {
+    @include media_mobile {
+      .pagination-box {
+        justify-content: center;
+      }
+    }
+  }
+  &__filters-sibar {
+    flex-basis: 250px;
+  }
+  &__product-list {
+    flex-grow: 1;
+    max-width: none;
+    padding: 16px;
+  }
+  &__mobile-filters-box {
+    padding: 0 16px;
+    width: 100%;
+  }
+  &__options-filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__filters-count {
+    background: var(--color-primary);
+    color: #ffffff;
+    padding: 4px 2px;
+    border-radius: 6px;
+    margin-left: 8px;
+  }
+}

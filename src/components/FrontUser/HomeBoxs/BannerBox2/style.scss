@@ -1,0 +1,89 @@
+@import 'scss/style';
+.banner-box-2 {
+  &__wrapper {
+    padding: 0 0 0 10% !important;
+    &--mobile {
+      padding: 0 !important;
+      .banner-box__img {
+        background: url("/public/images/home/home-1.png") center center no-repeat;
+        margin: 25px 0 20px;
+        width: 80%;
+        display: block;
+        img {
+          display: block;
+          margin: 0 auto;
+        }
+      }
+
+    }
+  }
+  &__contents {
+    display: flex;
+    flex-flow: column;
+    gap: 24px;
+  }
+  &__title {
+    color: #10110D;
+    font-weight: bold;
+    font-size: var(--title-font-size);
+    line-height: var(--title-line-height);
+  }
+  &__description {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px
+  }
+
+  &__left-box  {
+    display: flex;
+    align-items: center;
+  }
+
+  &__img {
+    display: grid;
+    grid-template-columns: repeat(5, 100px);
+    grid-template-rows: repeat(5, 100px);
+    @include media_mobile {
+      grid-template-columns: repeat(5, 60px);
+      grid-template-rows: repeat(5, 60px);
+    }
+    img {
+      width: auto;
+      height: 100%;
+    }
+  }
+  &__ao-img {
+    grid-column: 2 / 6;
+    grid-row: 1 / 5;
+    z-index: 1;
+  }
+  &__cap-img {
+    grid-column: 1 / 5;
+    grid-row: 2 / 5;
+    z-index: 2;
+  }
+  &__coc-img {
+    grid-column: 1/4;
+    grid-row: 3/6;
+    z-index: 3;
+  }
+  &__giay-img {
+    grid-column: 3/6;
+    grid-row: 3/6;
+    z-index: 4;
+  }
+  &__buttons {
+    font-size: var(--description-font-size);
+    font-weight: bold;
+    line-height: var(--description-line-height);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  &__img-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

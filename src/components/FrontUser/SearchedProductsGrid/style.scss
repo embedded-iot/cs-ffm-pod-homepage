@@ -1,0 +1,29 @@
+@import 'scss/style';
+.searched-products-grid {
+  &__wrapper {
+    & > div:first-of-type {
+      flex-basis: 250px;
+    }
+    & > div:last-of-type {
+      flex-grow: 1;
+      max-width: none;
+    }
+  }
+  &__title {
+    color: rgb(111, 111, 105);
+    font-size: 16px;
+  }
+  &__link {
+    color: rgb(16, 17, 13);
+    margin-top: 8px;
+    cursor: pointer;
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+  &__recent-terms {
+    @include media_mobile {
+      padding: 16px;
+    }
+  }
+}
