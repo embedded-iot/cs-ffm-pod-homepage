@@ -1,0 +1,25 @@
+@import 'scss/style';
+
+.home-page__wrapper {
+  --heading-font-size: 64px;
+  --heading-line-height: 54px;
+  --title-font-size: 48px;
+  --title-line-height: 55px;
+  --description-font-size: 16px;
+  --description-line-height: 24px;
+  @include media_mobile {
+    --color-primary: #028BBF;
+    --heading-font-size: 48px;
+    --heading-line-height: 55px;
+    --title-font-size: 24px;
+    --title-line-height: 30px;
+    --description-font-size: 14px;
+    --description-line-height: 16px;
+  }
+
+  background: #FAFBFC;
+  .signup-banner__wrapper {
+    margin: 0 auto 40px;
+    max-width: 1000px;
+  }
+}

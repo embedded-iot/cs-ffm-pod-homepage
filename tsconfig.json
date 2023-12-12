@@ -10,6 +10,9 @@
       "containers": [
         "./src/containers"
       ],
+      "containers/*": [
+        "./src/containers/*"
+      ],
       "images": [
         "/public/images"
       ],

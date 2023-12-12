@@ -42,13 +42,13 @@ import RegisterPage from 'containers/Common/RegisterPage/Loadable';
 import ForgotPasswordPage from 'containers/Common/ForgotPasswordPage/Loadable';
 import ChangePasswordPage from 'containers/Common/ChangePasswordPage/Loadable';
 
-import FrontUserHomePage from 'containers/FrontUser/HomePage/Loadable';
-import FrontUserAllProductsPage from 'containers/FrontUser/CategoriesPage/Loadable';
-import FrontUserProductDetailPage from 'containers/FrontUser/ProductDetailPage/Loadable';
+import FrontUserHomePage from 'containers/HomePage/Loadable';
+import FrontUserAllProductsPage from 'containers/CategoriesPage/Loadable';
+import FrontUserProductDetailPage from 'containers/ProductDetailPage/Loadable';
 import FrontUserSKUPage from 'containers/FrontUser/SKUPage/Loadable';
-import FrontUserBlogsPage from 'containers/FrontUser/BlogsPage/Loadable';
-import FrontUserBlogDetailPage from 'containers/FrontUser/BlogDetailPage/Loadable';
-import FrontUserStaticBlogsPage from 'containers/FrontUser/StaticBlogsPage/Loadable';
+import FrontUserBlogsPage from 'containers/BlogsPage/Loadable';
+import FrontUserBlogDetailPage from 'containers/BlogDetailPage/Loadable';
+import FrontUserStaticBlogsPage from 'containers/StaticBlogsPage/Loadable';
 
 import SellerContestPage from 'containers/Seller/ContestPage/Loadable';
 import SellerHomePage from 'containers/Seller/HomePage/Loadable';

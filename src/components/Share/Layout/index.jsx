@@ -1,3 +1,5 @@
+'use client';
+
 import { Layout } from 'antd';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';

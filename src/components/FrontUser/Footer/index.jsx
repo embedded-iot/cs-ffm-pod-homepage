@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import {Col, Divider, Row} from 'antd';
 import { SellerSystemService } from 'services';
@@ -11,14 +13,15 @@ import classNames from 'classnames';
 import Icon from "components/Common/Icon";
 import './style.scss';
 
-export default function Footer({ systemConfigs = [], redirectTo = () => {}}) {
+export default function Footer() {
+  const systemConfigs = [];
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const pageID = SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_FACEBOOK_PAGE_ID);
   const handleIntegrate = (link) => {
     window.open(link, "_blank");
   }
   const handleStaticBlog = (key) => {
-    redirectTo(ROUTERS.FRONT_USER_STATIC_BLOGS + '/' + key);
+    // redirectTo(ROUTERS.FRONT_USER_STATIC_BLOGS + '/' + key);
   }
 
   const socialLinks = [

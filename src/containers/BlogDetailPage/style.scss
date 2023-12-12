@@ -1,5 +1,5 @@
-@import 'scss/style';
-.static-blogs-page {
+@import 'style';
+.blog-detail-page {
   &__wrapper {
     width: 100%;
     padding: 40px;
@@ -10,10 +10,12 @@
       max-width: 872px;
       @include media_mobile {
         padding: 16px;
-        .box-header__wrapper {
-          margin-bottom: 0 !important;
-        }
       }
+    }
+  }
+  &__breadcrumb {
+    @include media_mobile {
+      margin-bottom: 16px;
     }
   }
 }

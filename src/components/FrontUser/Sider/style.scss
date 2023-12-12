@@ -52,9 +52,12 @@
   width: 100%;
   top: 64px !important;
   position: fixed;
+  left: 0 !important;
+  padding-top: 1px;
+  //display: block !important;
   & > ul {
     display: flex;
-    padding: 45px 35px;
+    padding: 45px 35px !important;
     flex-wrap: wrap;
     gap: 16px;
     &::before {

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import Sider, {getItem, getSelectedKeys} from 'components/Common/Sider';
 import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import { useMediaQuery } from 'react-responsive';
-import { Link } from 'react-router-dom';
+import Link from 'next/link'
 import { FrontUserCategoriesService } from 'services';
 import { DownOutlined } from '@ant-design/icons'
 import arrowLeft from 'public/images/arrow-left.png';
@@ -15,12 +15,12 @@ export default function PublicSider({ selectedRouters = [], redirectTo = () => {
   const [collectionsRouters, setCollectionsRouters] = useState([]);
   const items = useMemo(() => {
     const routers = [
-      getItem(<Link to={ROUTERS.ROOT}>Home</Link>, ROUTERS.ROOT),
-      isMobile ? getItem(<Link to={ROUTERS.FRONT_USER_ALL_PRODUCTS}>Products</Link>, ROUTERS.FRONT_USER_ALL_PRODUCTS) : getItem(<Link to={ROUTERS.FRONT_USER_ALL_PRODUCTS}>Products</Link>, ROUTERS.FRONT_USER_ALL_PRODUCTS, undefined,
+      getItem(<Link href={ROUTERS.ROOT}>Home</Link>, ROUTERS.ROOT),
+      isMobile ? getItem(<Link href={ROUTERS.FRONT_USER_ALL_PRODUCTS}>Products</Link>, ROUTERS.FRONT_USER_ALL_PRODUCTS) : getItem(<Link href={ROUTERS.FRONT_USER_ALL_PRODUCTS}>Products</Link>, ROUTERS.FRONT_USER_ALL_PRODUCTS, undefined,
         [...collectionsRouters,...categoriesRouters]
       ),
-      // getItem(<Link to={ROUTERS.FRONT_USER_SKU}>SKU</Link>, ROUTERS.FRONT_USER_SKU),
-      getItem(<Link to={ROUTERS.FRONT_USER_BLOGS}>Blogs</Link>, ROUTERS.FRONT_USER_BLOGS),
+      // getItem(<Link href={ROUTERS.FRONT_USER_SKU}>SKU</Link>, ROUTERS.FRONT_USER_SKU),
+      getItem(<Link href={ROUTERS.FRONT_USER_BLOGS}>Blogs</Link>, ROUTERS.FRONT_USER_BLOGS),
     ];
     return routers;
   }, [categoriesRouters, collectionsRouters]);

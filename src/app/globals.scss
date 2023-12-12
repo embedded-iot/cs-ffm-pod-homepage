@@ -2,3 +2,16 @@ body {
  margin: 0;
 }
 
+:root {
+ --color-primary: #028BBF;
+}
+
+.app__wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.ant-btn {
+ display: flex !important;
+}

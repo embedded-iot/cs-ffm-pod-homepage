@@ -1,8 +1,13 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import StyledComponentsRegistry from './AntdRegistry'
+import StyledComponentsRegistry from './AntdRegistry';
+import theme from "./themeConfig";
+import PublicLayoutWrapper from "components/Share/Layout";
+import FrontUserFooter from "components/FrontUser/Footer";
+import FrontUserHeader from 'components/FrontUser/Header';
+import {ConfigProvider} from "antd";
 import './globals.scss'
-
+import 'scss/style.scss';
 
 
 export const metadata: Metadata = {
@@ -15,12 +20,49 @@ interface RootLayoutProps {
 }
 
 function RootLayout({ children }: RootLayoutProps) {
-  return (
+    // const currentRouter = router?.location?.pathname;
+    // const selectedRouters = [currentRouter];
+    // const routerState = useSelector(state => state.router)
+    // console.log(routerState)
+    const redirectTo = (path: any) => {
 
+    }
+
+  return (
     <html lang="en">
+      <header>
+        <meta charSet="utf-8"/>
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Expires" content="0"/>
+        <link rel="icon" href="/favicon.png"/>
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <meta name="theme-color" content="#000000"/>
+        <meta property="og:url" content="https://monsprints.com/"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="MonsPrints | Print on Demand & Fulfillment Service"/>
+        <meta property="og:description" content="Create & manage orders quickly, solve seller's supply problems. Sign up now for free to start selling"/>
+        <meta property="og:image" content="https://monsprints.com/uploads/files/monsprints-logo.png"/>
+
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta property="twitter:domain" content="monsprints.com"/>
+        <meta property="twitter:url" content="https://monsprints.com/"/>
+        <meta name="twitter:title" content="MonsPrints | Print on Demand & Fulfillment Service"/>
+        <meta name="twitter:description" content="Create & manage orders quickly, solve seller's supply problems. Sign up now for free to start selling"/>
+        <meta name="twitter:image" content="https://monsprints.com/uploads/files/monsprints-logo.png"/>
+      </header>
       <body>
         <StyledComponentsRegistry>
-            {children}
+          <ConfigProvider theme={theme}>
+            <div className="app__wrapper">
+              <PublicLayoutWrapper
+                header={<FrontUserHeader />}
+                content={children}
+                footer={<FrontUserFooter />}
+              />
+            </div>
+          </ConfigProvider>
         </StyledComponentsRegistry>
       </body>
     </html>

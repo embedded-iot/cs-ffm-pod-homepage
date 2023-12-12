@@ -12,9 +12,9 @@ import { SET_GLOBAL_STORE } from './constants';
 
 // The initial state of the App
 export const initialState = {
-  isSellerMode: import.meta.env.VITE_MODE === 'seller' || false,
-  isProducerMode: import.meta.env.VITE_MODE === 'producer' || false,
-  isAdminMode: import.meta.env.VITE_MODE === 'admin' || false,
+  isSellerMode: process.env.NEXT_PUBLIC_MODE === 'seller' || false,
+  isProducerMode: process.env.NEXT_PUBLIC_MODE === 'producer' || false,
+  isAdminMode: process.env.NEXT_PUBLIC_MODE === 'admin' || false,
   isLogin: false,
   isAdmin: false,
   isProducer: false,

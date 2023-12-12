@@ -1,16 +1,19 @@
+'use client';
+
 import React, {useEffect, useState} from 'react';
 import UserActions from 'components/FrontUser/UserActions';
 import { WEBSITE_NAME } from 'components/contants';
 import logo from 'public/images/logo.png';
-import logoIcon from 'public/images/logo-icon.png';
 import SearchDrawerBox from '../SearchDrawerBox';
 import {events} from "utils";
+import PublicSider from "../Sider";
 
 import './style.scss';
 
-export default function PublicHeader({ systemConfigs, sider, redirectTo }) {
+export default function PublicHeader() {
   const [openSearch, setOpenSearch] = useState(false);
-
+  const systemConfigs = [];
+  const redirectTo = () => {}
   const searchListenerFunc = () => {
     let reloadListener = null;
     reloadListener = events.subscribe("SEARCH_PRODUCT_DRAWER_LISTENER", ({ key, record }) => {
@@ -35,7 +38,9 @@ export default function PublicHeader({ systemConfigs, sider, redirectTo }) {
         </a>
       </div>
       <div className="header__actions">
-        <div className="header__menu">{ sider }</div>
+        <div className="header__menu">
+          <PublicSider />
+        </div>
         <UserActions
           redirectTo={redirectTo}
           onSearch={() => setOpenSearch(true)}

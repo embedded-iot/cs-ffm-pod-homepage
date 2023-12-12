@@ -1,18 +1,18 @@
 const getBaseURL = () => {
-  const baseUrl = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API : '';
+  const baseUrl = process.env.NEXT_PUBLIC_API;
   return baseUrl + '/api/v1';
 }
 
 const getFrontUserUrl = () => {
-  return import.meta.env.VITE_FE;
+  return process.env.NEXT_PUBLIC_FE;
 }
 
 const getSellerUrl = () => {
-  return import.meta.env.VITE_SELLER_FE;
+  return process.env.NEXT_PUBLIC_SELLER_FE;
 }
 
 const getAdminUrl = () => {
-  return import.meta.env.VITE_ADMIN_FE;
+  return process.env.NEXT_PUBLIC_ADMIN_FE;
 }
 
 const getFrontUserBaseURL = () => {
