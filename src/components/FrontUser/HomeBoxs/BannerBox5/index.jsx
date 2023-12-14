@@ -8,6 +8,7 @@ import './style.scss';
 import arrowIcon from 'public/images/home/arrow_right_long_light.svg';
 import bannerImg from 'public/images/home/home-20.png';
 import bannerImg1 from 'public/images/home/home-14.png';
+import Icon from "../../../Common/Icon";
 
 
 export default function BannerBox5({ customClass, redirectTo }) {
@@ -21,13 +22,13 @@ export default function BannerBox5({ customClass, redirectTo }) {
         </div>
         <div className='banner-box-5__description'>
           <span className='banner-box-5__link'>Talk to sales</span>
-          <img src={arrowIcon} alt="All products link" width={24} height={24}/>
+          <Icon src={arrowIcon} alt="All products link" width={24} height={24}/>
         </div>
       </div>
       <Row>
         <Col span={isMobile ? 24 : 16} className="banner-box-5__img-box">
           <div className='banner-box-5__img'>
-            <img src={bannerImg} alt="banner img" />
+            <Icon src={bannerImg} alt="banner img" />
           </div>
         </Col>
         <Col span={isMobile ? 24 : 8} className={`banner-box-5__right-box ${isMobile && 'padding-box--mobile'}`}>
@@ -39,7 +40,7 @@ export default function BannerBox5({ customClass, redirectTo }) {
               With our free design tools, you can easily add your custom designs to t-shirts, mugs, phone cases, and hundreds of other products.
             </div>
             <div className='banner-box-5__buttons'>
-              <img src={bannerImg1} alt="All products link"/>
+              <Icon src={bannerImg1} alt="All products link"/>
             </div>
           </div>
         </Col>

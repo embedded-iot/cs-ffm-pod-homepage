@@ -1,10 +1,10 @@
 import React from 'react';
 import bannerImg from 'public/images/home/home-16.png';
-import bannerImg1 from 'public/images/home/home-17.png';
 import { Button, Col, Row } from 'antd';
 import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import { useMediaQuery } from 'react-responsive';
 import './style.scss';
+import Icon from "../../../Common/Icon";
 
 export default function BannerBox9({ customClass, redirectTo }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
@@ -45,7 +45,7 @@ export default function BannerBox9({ customClass, redirectTo }) {
         </Col>
         <Col span={isMobile ? 24 : 12} className="banner-box-9__img-box">
           <div className='banner-box-9__img'>
-            <img src={bannerImg} alt="banner img" />
+            <Icon src={bannerImg} alt="banner img" />
           </div>
         </Col>
       </Row>
@@ -66,7 +66,7 @@ export default function BannerBox9({ customClass, redirectTo }) {
       {/*    </Col>*/}
       {/*    <Col span={isMobile ? 24 : 12} className="banner-box-9__img-box">*/}
       {/*      <div className='banner-box-9__img-1'>*/}
-      {/*        <img src={bannerImg1} alt="banner img" />*/}
+      {/*        <Icon src={bannerImg1} alt="banner img" />*/}
       {/*      </div>*/}
       {/*    </Col>*/}
       {/*  </Row>*/}

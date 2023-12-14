@@ -1,5 +1,6 @@
 .pagination-box {
   &__wrapper {
+    display: flex;
     &--simple {
       display: flex;
       align-items: center;

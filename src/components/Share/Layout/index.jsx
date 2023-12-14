@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
 import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
+import {usePathname} from "next/navigation";
 
 import './style.scss';
 
@@ -38,10 +39,11 @@ const TabletAndDesktopLayout = props => {
 
 const MobileLayout = props => {
   const [isMenu, setMenu] = useState(false);
+  const pathName = usePathname();
   useEffect(() => {
     setMenu(isMenu ? false : isMenu);
     // eslint-disable-next-line
-  }, [props?.router?.location])
+  }, [pathName])
   const MenuIcon = isMenu ? CloseOutlined : MenuOutlined;
   return (
     <Layout className={`public-layout__wrapper public-layout__wrapper--mobile ${!!isMenu && 'show-menu'}`}>
@@ -80,7 +82,6 @@ PublicLayoutWrapper.propTypes = {
   header: PropTypes.element,
   content: PropTypes.element,
   footer: PropTypes.element,
-  router: PropTypes.object,
 };
 
 export default PublicLayoutWrapper;

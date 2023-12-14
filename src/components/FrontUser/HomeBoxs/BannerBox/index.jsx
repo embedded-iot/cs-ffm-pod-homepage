@@ -5,6 +5,7 @@ import { Button, Col, Row } from 'antd';
 import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import { useMediaQuery } from 'react-responsive';
 import './style.scss';
+import Icon from "../../../Common/Icon";
 
 export default function BannerBox({ customClass, redirectTo }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
@@ -15,7 +16,7 @@ export default function BannerBox({ customClass, redirectTo }) {
           Create and sell
         </div>
         <div className='banner-box__description'>
-          <img src={customProductImg} alt="banner img" />
+          <Icon src={customProductImg} alt="banner img" />
         </div>
         <div className='banner-box__checkbox-list'>
           <div className='banner-box__checkbox-item'>

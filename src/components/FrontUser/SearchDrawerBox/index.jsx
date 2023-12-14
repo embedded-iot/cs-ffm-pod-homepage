@@ -5,8 +5,8 @@ import logo from 'public/images/logo.png';
 import { RESPONSIVE_MEDIAS, WEBSITE_NAME } from '../../contants';
 import "./style.scss";
 import SearchedProductsGrid from 'components/FrontUser/SearchedProductsGrid';
-import logoIcon from 'public/images/logo-icon.png';
 import { useMediaQuery } from 'react-responsive';
+import Icon from "components/Common/Icon";
 
 export default function SearchDrawerBox({ redirectTo, open, onOk, onCancel, systemConfigs }) {
   const [searchText, setSearchText] = useState("");
@@ -23,7 +23,7 @@ export default function SearchDrawerBox({ redirectTo, open, onOk, onCancel, syst
           { !isMobile && (
             <div className='logo-portal'>
               <a href='/'>
-                <img src={logo} alt={WEBSITE_NAME} />
+                <Icon src={logo} alt={WEBSITE_NAME} height={30}/>
               </a>
             </div>
           )}

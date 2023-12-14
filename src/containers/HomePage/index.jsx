@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import {
@@ -12,18 +14,16 @@ import {
   BannerBox8,
   BannerBox9,
 } from 'components/FrontUser/HomeBoxs';
-import { push } from 'connected-react-router';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
-
+import {useRouter} from "next/navigation";
 import './style.scss';
 
 function HomePage(props) {
   const isDesktop = useMediaQuery(RESPONSIVE_MEDIAS.DESKTOP);
   const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+  const router = useRouter();
   // eslint-disable-next-line
   const customClass = !!isMobile && 'home-box__wrapper--mobile' || !!isTablet && 'home-box__wrapper--tablet' || !!isDesktop && 'home-box__wrapper--desktop';
   return (
@@ -34,65 +34,46 @@ function HomePage(props) {
       <div className="page-contents">
         <BannerBox
           customClass={customClass}
-          redirectTo={props.push}
+          redirectTo={router.push}
         />
         <BannerBox1
           customClass={customClass}
-          redirectTo={props.push}
+          redirectTo={router.push}
         />
         <BannerBox2
           customClass={customClass}
-          redirectTo={props.push}
+          redirectTo={router.push}
         />
         <BannerBox3
           customClass={customClass}
-          redirectTo={props.push}
+          redirectTo={router.push}
         />
         <BannerBox4
           customClass={customClass}
-          redirectTo={props.push}
+          redirectTo={router.push}
         />
         {/*<BannerBox5*/}
         {/*  customClass={customClass}*/}
-        {/*  redirectTo={props.push}*/}
+        {/*  redirectTo={router.push}*/}
         {/*/>*/}
         <BannerBox6
           customClass={customClass}
-          redirectTo={props.push}
+          redirectTo={router.push}
         />
         <BannerBox7
           customClass={customClass}
         />
         <BannerBox8
           customClass={customClass}
-          redirectTo={props.push}
+          redirectTo={router.push}
         />
         {/*<BannerBox9*/}
         {/*  customClass={customClass}*/}
-        {/*  redirectTo={props.push}*/}
+        {/*  redirectTo={router.push}*/}
         {/*/>*/}
       </div>
     </div>
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    router: state.router,
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    push: path => dispatch(push(path)),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-export default compose(
-  withConnect,
-)(HomePage);
+export default HomePage;

@@ -8,6 +8,7 @@ import { Col, Row } from 'antd';
 import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import { useMediaQuery } from 'react-responsive';
 import './style.scss';
+import Icon from "../../../Common/Icon";
 
 export default function BannerBox2({ customClass, redirectTo }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
@@ -24,7 +25,7 @@ export default function BannerBox2({ customClass, redirectTo }) {
             </div>
             <div className='banner-box-2__buttons'>
               <span className='banner-box-2__buttons' onClick={() => redirectTo(ROUTERS.FRONT_USER_ALL_PRODUCTS)}>All products</span>
-              <img src={arrowIcon} alt="All products link" width={24} height={24}/>
+              <Icon src={arrowIcon} alt="All products link" width={24} height={24}/>
             </div>
           </div>
         </Col>
@@ -32,16 +33,16 @@ export default function BannerBox2({ customClass, redirectTo }) {
           <div className='banner-box-2__img-box'>
             <div className='banner-box-2__img'>
               <div className='banner-box-2__ao-img'>
-                <img src={aoImg} alt="banner img"/>
+                <Icon src={aoImg} alt="banner img"/>
               </div>
               <div className='banner-box-2__cap-img'>
-                <img src={capImg} alt="banner img"/>
+                <Icon src={capImg} alt="banner img"/>
               </div>
               <div className='banner-box-2__coc-img'>
-                <img src={cocImg} alt="banner img"/>
+                <Icon src={cocImg} alt="banner img"/>
               </div>
               <div className='banner-box-2__giay-img'>
-                <img src={giayImg} alt="banner img"/>
+                <Icon src={giayImg} alt="banner img"/>
               </div>
             </div>
           </div>

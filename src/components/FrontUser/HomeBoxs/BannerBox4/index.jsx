@@ -10,6 +10,7 @@ import image10 from 'public/images/home/home-8.png';
 import image11 from 'public/images/home/home-11.png';
 import image12 from 'public/images/home/home-12.png';
 import image13 from 'public/images/home/home-10.png';
+import Icon from "../../../Common/Icon";
 
 const images = [image8, image9, image10, image11, image12, image13]
 
@@ -29,9 +30,9 @@ export default function BannerBox4({ customClass, redirectTo }) {
       <Row gutter={isMobile ? [16, 16] : [24, 24]} className='banner-box-4__brand-list'>
         {
           images.map((img, index) => (
-            <Col span={isMobile ? 12 :4}>
-              <div className='banner-box-4__content' key={index}>
-                <img src={img} alt="img" />
+            <Col span={isMobile ? 12 :4} key={index}>
+              <div className='banner-box-4__content'>
+                <Icon src={img} alt="img" />
               </div>
             </Col>
           ))

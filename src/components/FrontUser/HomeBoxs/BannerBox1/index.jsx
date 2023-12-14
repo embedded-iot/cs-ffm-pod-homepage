@@ -25,7 +25,7 @@ export default function BannerBox1({ customClass, redirectTo }) {
               <div className='banner-box-1__item-description'>Our commitment to superior craftsmanship ensures that each product reflects precision, vibrancy, and durability.</div>
             </div>
             <div className='banner-box-1__img'>
-              <img src={bannerImg1} alt="banner img" />
+              <Icon src={bannerImg1} alt="banner img" />
             </div>
           </div>
         </Col>
@@ -39,7 +39,7 @@ export default function BannerBox1({ customClass, redirectTo }) {
               <div className='banner-box-1__item-description'>Easily handle peak holiday seasons, with our wide network of partners and automatic routing functionality.</div>
             </div>
             <div className='banner-box-1__img'>
-              <img src={bannerImg2} alt="banner img" />
+              <Icon src={bannerImg2} alt="banner img" />
             </div>
           </div>
         </Col>
@@ -53,7 +53,7 @@ export default function BannerBox1({ customClass, redirectTo }) {
               <div className='banner-box-1__item-description'>With 900+ products and top quality brands, you can choose the best products for your business.</div>
             </div>
             <div className='banner-box-1__img'>
-              <img src={bannerImg3} alt="banner img" />
+              <Icon src={bannerImg3} alt="banner img" />
             </div>
           </div>
         </Col>

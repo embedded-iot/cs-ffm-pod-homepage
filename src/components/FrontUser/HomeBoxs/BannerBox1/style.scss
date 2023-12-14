@@ -12,7 +12,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: url("/public/images/home/ellipse-bg.svg") bottom right no-repeat;
+    background: url("/images/home/ellipse-bg.svg") bottom right no-repeat;
     background-size: 30%;
     height: 100%;
   }
@@ -60,6 +60,7 @@
     }
     img {
       width: 100%;
+      height: auto;
     }
   }
 }

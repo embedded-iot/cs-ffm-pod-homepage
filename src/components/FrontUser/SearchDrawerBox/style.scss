@@ -1,19 +1,19 @@
 @import 'scss/style';
 .search-drawer-box {
   &__wrapper {
+    height: 100% !important;
+    min-height: 580px !important;
+
+    @include media_mobile {
+      max-height: unset !important;
+    }
+
     .ant-drawer-header-title {
       display: flex;
       flex-direction: row-reverse;
       gap: 10px;
       padding: 0 16px;
       height: 64px;
-    }
-    .ant-drawer-content-wrapper {
-      height: 100% !important;
-      max-height: 550px !important;
-      @include media_mobile {
-        max-height: unset !important;
-      }
     }
     .ant-drawer-header {
       padding: 0;
@@ -36,11 +36,15 @@
       }
       img {
         height: 30px;
+        display: block;
       }
     }
   }
   &__search {
     max-width: 640px;
+    height: 64px;
+    display: flex;
+    align-items: center;
     & > span.ant-input-affix-wrapper {
       background: rgb(255, 255, 255);
       border: 1px solid rgb(205, 204, 202);
@@ -65,4 +69,8 @@
       width: 100%;
     }
   }
+}
+
+.ant-drawer-content-wrapper {
+  height: unset !important;
 }

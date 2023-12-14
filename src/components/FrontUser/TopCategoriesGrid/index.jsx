@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';

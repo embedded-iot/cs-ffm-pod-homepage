@@ -1,7 +1,7 @@
 @import 'scss/style';
 .banner-box {
   &__wrapper {
-    background: url("/public/images/home/home-1.png") center center no-repeat;
+    background: url("/images/home/home-1.png") center center no-repeat;
     background-size: cover;
   }
   &__title {
@@ -27,6 +27,7 @@
     }
     img {
       height: 100%;
+      width: auto;
     }
   }
 

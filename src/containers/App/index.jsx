@@ -35,6 +35,8 @@ import {
 import './style.scss';
 import {setGlobalStore} from "../../store/slices";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
+import {useRouter} from "next/navigation";
+import {usePathname} from "next/dist/client/components/navigation";
 
 const AppWrapper = styled.div`
   display: flex;
@@ -43,15 +45,16 @@ const AppWrapper = styled.div`
 `;
 
 
-const App = (props) => {
+const App = ({ children, ...props }) => {
   const [isLoadedCurrentEvent, setIsLoadedCurrentEvent] = useState(false);
   const [isLoadingSpinner, setIsLoadingSpinner] = useState(false);
-  const currentRouter = props.router.location.pathname;
-  const systemConfigs = useAppSelector(state => state.systemConfigs);
+  const systemConfigs = useAppSelector(state => state.data.systemConfigs);
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const currentRouter = usePathname();
 
   const redirectTo = path => {
-    props.push(path);
+    router.push(path);
   }
 
   const getCurrentEvent = () => {
@@ -114,7 +117,7 @@ const App = (props) => {
     // eslint-disable-next-line
   }, []);
   const selectedRouters = [currentRouter];
-  if (!isLoadedCurrentEvent) return null;
+  // if (!isLoadedCurrentEvent) return null; @todo load event is missing
 
   return (
     <AppWrapper>
@@ -122,14 +125,18 @@ const App = (props) => {
         header={(
           <FrontUserHeader
             logoName={WEBSITE_NAME}
-            sider={<FrontUserSider selectedRouters={selectedRouters} redirectTo={redirectTo} />}
+            sider={(
+              <FrontUserSider
+                selectedRouters={selectedRouters}
+                redirectTo={redirectTo}
+              />
+            )}
             redirectTo={redirectTo}
             systemConfigs={systemConfigs}
           />
         )}
         content={children}
         footer={<FrontUserFooter systemConfigs={systemConfigs} redirectTo={redirectTo}  />}
-        router={props.router}
       />
       { isLoadingSpinner && <SpinnerBox /> }
     </AppWrapper>

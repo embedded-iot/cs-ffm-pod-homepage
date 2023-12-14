@@ -6,7 +6,7 @@ const initialState = {
 };
 
 export const storeSlice = createSlice({
-  name: "store",
+  name: "data",
   initialState,
   reducers: {
     setGlobalStore(state, action) {
@@ -18,6 +18,5 @@ export const storeSlice = createSlice({
 });
 export const { setGlobalStore } = storeSlice.actions;
 
-export default storeSlice.reducer;
-
 export default storeSlice;
+

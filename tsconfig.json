@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     "paths": {
+      "public/*": [
+        "./public/*"
+      ],
       "components": [
         "./src/components"
       ],
@@ -31,8 +34,8 @@
       "utils": [
         "./src/utils"
       ],
-      "public/*": [
-        "/public/*"
+      "utils/*": [
+        "./src/utils/*"
       ],
     },
     "target": "es5",
