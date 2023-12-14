@@ -143,11 +143,11 @@ export default function CategoriesGrid(
   }, [categoryId, collectionId]);
 
   useEffect(() => {
-    if (ref.current.firstLoad && !queryParams.sortByValue) {
+    if (ref.current.firstLoad && !queryParams?.sortByValue) {
       setFilters({})
       clearTable();
     }
-  }, [queryParams.sortByValue]);
+  }, [queryParams?.sortByValue]);
 
   useEffect(() => {
     const selectedCollection = collections.find(collection => collection.collectionId === collectionId);

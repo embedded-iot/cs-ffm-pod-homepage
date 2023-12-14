@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import {
   BannerBox,
   BannerBox1,
@@ -28,9 +27,6 @@ function HomePage(props) {
   const customClass = !!isMobile && 'home-box__wrapper--mobile' || !!isTablet && 'home-box__wrapper--tablet' || !!isDesktop && 'home-box__wrapper--desktop';
   return (
     <div className="page-wrapper--full-width home-page__wrapper">
-      <Helmet>
-        <title>Home</title>
-      </Helmet>
       <div className="page-contents">
         <BannerBox
           customClass={customClass}

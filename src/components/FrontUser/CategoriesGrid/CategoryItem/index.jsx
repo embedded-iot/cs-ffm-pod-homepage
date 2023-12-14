@@ -2,13 +2,14 @@ import React from 'react';
 import { Card } from 'antd';
 
 import './style.scss';
+import Icon from "components/Common/Icon";
 
 export default function CategoryItem({ className, footer, allowClick = true, showTitle = true, showDes1 = true, showDes2 = true, onClick = () => {}, imgProps = {}, ...restProp}) {
   const { id, name, avatar, discountPercent, convertedPrice, convertedOriginPrice, sku } = restProp || {};
   return (
     <Card
       className={`category-item__wrapper ${className}`}
-      cover={<img alt={name} src={avatar} {...imgProps} />}
+      cover={<Icon alt={name} src={avatar} {...imgProps} width={100} height={100} />}
       onClick={() => allowClick && onClick(restProp)}
       key={id}
     >

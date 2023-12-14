@@ -2,15 +2,11 @@
   &__wrapper {
     li {
       line-height: 16px;
-    }
-    li:not(:last-child) {
-      .ant-breadcrumb-link {
-        color: #626F86;
-      }
-    }
-    li:last-child {
-      .ant-breadcrumb-link {
-        color: var(--primary-color);
+      a {
+        background: none !important;
+        &:hover {
+          color: var(--color-primary) !important;
+        }
       }
     }
   }

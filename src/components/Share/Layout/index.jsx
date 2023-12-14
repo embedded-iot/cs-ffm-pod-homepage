@@ -71,10 +71,11 @@ const MobileLayout = props => {
 
 const PublicLayoutWrapper = (props) => {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  //   // eslint-disable-next-line
-  // }, [props?.router?.location])
+  const pathName = usePathname();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // eslint-disable-next-line
+  }, [pathName])
   return isMobile ? <MobileLayout {...props} /> : <TabletAndDesktopLayout {...props} />;
 }
 

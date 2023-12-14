@@ -76,6 +76,19 @@ function removeTags(str) {
   return /<img/.test(str.trim()) ? str.trim() : str.replace( /(<([^>]+)>)/ig, '').trim() ;
 }
 
+function convertSearchParamsToQueryParamsObj(str) {
+  if ((str===null) || (str==='') || (str===undefined))
+    return false;
+  else
+    str = str.toString();
+
+  // Regular expression to identify HTML tags in
+  // the input string. Replacing the identified
+  // HTML tag with a null string.
+  return /<img/.test(str.trim()) ? str.trim() : str.replace( /(<([^>]+)>)/ig, '').trim() ;
+}
+
+
 export {
   removeEmpty,
   groupBy,

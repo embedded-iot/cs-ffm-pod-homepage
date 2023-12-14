@@ -1,8 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Helmet } from 'react-helmet';
-import { push, replace } from 'connected-react-router';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
+'use client';
+
+import React, { useMemo, useState } from 'react';
 import CategoriesGrid from 'components/FrontUser/CategoriesGrid';
 import { useMediaQuery } from 'react-responsive';
 import {RESPONSIVE_MEDIAS, ROUTERS} from 'components/contants';
@@ -12,16 +10,23 @@ import PublicPageHeader from "components/Share/PublicPageHeader";
 import SortByDropdownMenu from 'components/FrontUser/CategoriesGrid/SortByDropdownMenu';
 import queryString from 'query-string';
 import { events } from 'utils';
+import {useParams, useRouter, useSearchParams} from "next/navigation";
+import {useAppSelector} from "store/hooks";
+import {usePathname} from "next/dist/client/components/navigation";
 
 
 const RELOAD_EVENT_KEY = 'RELOAD_PRODUCTS_TABLE_EVENT_KEY';
 const CLEAR_EVENT_KEY = 'CLEAR_PRODUCTS_TABLE_EVENT_KEY';
 
 
-function CategoriesPage(props) {
-  const params = props.match ? props.match.params : {};
-  const queryParams = queryString.parse(props.location.search);
+function CategoriesPage() {
+  const params = useParams();
+  const searchParams = useSearchParams();
+  const queryParams = queryString.parse(searchParams.toString());
+  const router = useRouter();
+  const pathName = usePathname();
   const { categoryId, collectionId } = params;
+  const systemConfigs = useAppSelector(state => state.data.systemConfigs);
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [totalCount, setTotalCount] = useState(0);
   const [filterName, setFilterName] = useState('');
@@ -43,11 +48,11 @@ function CategoriesPage(props) {
     });
   }
 
+  const replaceTo = ({ search }) => {
+    router.replace(pathName + search);
+  }
   return (
     <div className={`${isMobile ? 'page-wrapper--full-width' : 'page-wrapper'} categories-page__wrapper`}>
-      <Helmet>
-        <title>All Products</title>
-      </Helmet>
       <PublicPageHeader
         className={'categories-page__header'}
         title={(
@@ -72,10 +77,10 @@ function CategoriesPage(props) {
           categoryId={categoryId ? +categoryId : ''}
           collectionId={collectionId ? +collectionId : ''}
           queryParams={queryParams}
-          redirectTo={props.push}
-          replaceTo={props.replace}
+          redirectTo={router.push}
+          replaceTo={replaceTo}
           successCallback={setTotalCount}
-          systemConfigs={props.systemConfigs}
+          systemConfigs={systemConfigs}
           filterSuccessCallback={setFilterName}
           onFilterBreadCrumbs={setFilterBreadcrumbs}
         />
@@ -84,25 +89,4 @@ function CategoriesPage(props) {
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    router: state.router,
-    systemConfigs: state.global.systemConfigs || [],
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    push: path => dispatch(push(path)),
-    replace: path => dispatch(replace(path)),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-export default compose(
-  withConnect,
-)(CategoriesPage);
+export default CategoriesPage;
