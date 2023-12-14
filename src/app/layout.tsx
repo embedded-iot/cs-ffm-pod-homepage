@@ -1,11 +1,10 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import StyledComponentsRegistry from './AntdRegistry';
-import theme from "./themeConfig";
-import PublicLayoutWrapper from "components/Share/Layout";
-import FrontUserFooter from "components/FrontUser/Footer";
-import FrontUserHeader from 'components/FrontUser/Header';
+import StoreProvider from 'store/Provider';
 import {ConfigProvider} from "antd";
+import theme from "./themeConfig";
+import App from "containers/App";
 import './globals.scss'
 import 'scss/style.scss';
 
@@ -19,14 +18,11 @@ interface RootLayoutProps {
   children: React.ReactNode
 }
 
-function RootLayout({ children }: RootLayoutProps) {
+async function RootLayout({ children }: RootLayoutProps) {
     // const currentRouter = router?.location?.pathname;
     // const selectedRouters = [currentRouter];
     // const routerState = useSelector(state => state.router)
     // console.log(routerState)
-    const redirectTo = (path: any) => {
-
-    }
 
   return (
     <html lang="en">
@@ -54,15 +50,11 @@ function RootLayout({ children }: RootLayoutProps) {
       </header>
       <body>
         <StyledComponentsRegistry>
-          <ConfigProvider theme={theme}>
-            <div className="app__wrapper">
-              <PublicLayoutWrapper
-                header={<FrontUserHeader />}
-                content={children}
-                footer={<FrontUserFooter />}
-              />
-            </div>
-          </ConfigProvider>
+          <StoreProvider>
+            <ConfigProvider theme={theme}>
+              <App>{children}</App>
+            </ConfigProvider>
+          </StoreProvider>
         </StyledComponentsRegistry>
       </body>
     </html>
