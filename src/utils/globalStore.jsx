@@ -1,12 +1,12 @@
 class GlobalStore {
   set(option = {}) {
     this.globalStore = {
-      ...option
+      ...option,
     };
   }
 
   get() {
-    return this.globalStore;
+    return this.globalStore || {};
   }
 }
 

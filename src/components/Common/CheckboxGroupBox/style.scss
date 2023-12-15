@@ -1,0 +1,12 @@
+.checkbox-group-box__wrapper {
+  display: flex;
+  gap: 11px;
+  flex-flow: column;
+  label > span:nth-child(2) {
+    line-height: 20px;
+  }
+  label:after,
+  .ant-checkbox-inner:after {
+    display: none;
+  }
+}

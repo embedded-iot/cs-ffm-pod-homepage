@@ -1,35 +1,36 @@
 .collections-filters {
-    &__title {
-      color: rgb(16, 17, 13);
+  &__title {
+    color: rgb(16, 17, 13);
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 28px;
+  }
+  &__list {
+    &.left-margin {
+      padding-left: 20px;
+    }
+  }
+  &__wrapper {
+    margin-bottom: 40px;
+  }
+  &__item-label {
+    color: rgb(16, 17, 13);
+    margin-top: 11px;
+    &:hover {
+      cursor: pointer;
+      color: var(--color-primary);
+    }
+    &.active {
+      cursor: pointer;
+      color: #000000;
       font-weight: bold;
-      font-size: 20px;
-      line-height: 28px;
-    }
-    &__list {
-      &.left-margin {
-        padding-left: 20px;
-      }
-    }
-    &__wrapper {
-      margin-bottom: 40px;
-    }
-    &__item-label {
-      color: rgb(16, 17, 13);
-      margin-top: 11px;
       &:hover {
-        cursor: pointer;
         color: var(--color-primary);
       }
-      &.active {
-        cursor: pointer;
-        color: #000000;
-        font-weight: bold;
-        &:hover {
-          color: var(--color-primary);
-        }
-      }
     }
-    &__all-products-btn {
+  }
+  &__all-products-btn {
+    &.ant-btn-default {
       display: flex;
       align-items: center;
       cursor: pointer;
@@ -44,3 +45,4 @@
       }
     }
   }
+}

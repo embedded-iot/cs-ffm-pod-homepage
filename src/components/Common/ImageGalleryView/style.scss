@@ -4,7 +4,7 @@
       border: 2px solid red !important;
     }
   }
-  &__nav {
+  &__nav.ant-btn-default {
     width: 40px;
     height: 40px;
     background: white;
@@ -29,7 +29,6 @@
     }
   }
   &__thumb-nail {
-
   }
   &__origin-pic {
     border-radius: 0;
