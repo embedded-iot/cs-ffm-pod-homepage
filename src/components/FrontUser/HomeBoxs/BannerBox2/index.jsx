@@ -15,17 +15,19 @@ export default function BannerBox2({ customClass, redirectTo }) {
   return (
     <div className={`banner-box-2__wrapper ${customClass} ${isMobile && 'banner-box-2__wrapper--mobile'}`}>
       <Row>
-        <Col span={isMobile ? 24 : 8} className={`banner-box-2__left-box ${isMobile && 'padding-box--mobile'}`}>
-          <div className='banner-box-2__contents'>
-            <div className='banner-box-2__title'>
-              QUALITY MADE EASY
-            </div>
-            <div className='banner-box-2__description'>
-              Choose from hundreds of retail-quality products you can design and start selling right away. We'll handle the headache of end-to-end logistics so that you can focus on the fun stuff.
-            </div>
-            <div className='banner-box-2__buttons'>
-              <span className='banner-box-2__buttons' onClick={() => redirectTo(ROUTERS.FRONT_USER_ALL_PRODUCTS)}>All products</span>
-              <Icon src={arrowIcon} alt="All products link" width={24} height={24}/>
+        <Col span={isMobile ? 24 : 8} >
+          <div className={`banner-box-2__left-box ${isMobile && 'padding-box--mobile'}`}>
+            <div className='banner-box-2__contents'>
+              <div className='banner-box-2__title'>
+                QUALITY MADE EASY
+              </div>
+              <div className='banner-box-2__description'>
+                Choose from hundreds of retail-quality products you can design and start selling right away. We'll handle the headache of end-to-end logistics so that you can focus on the fun stuff.
+              </div>
+              <div className='banner-box-2__buttons'>
+                <span className='banner-box-2__buttons' onClick={() => redirectTo(ROUTERS.FRONT_USER_ALL_PRODUCTS)}>All products</span>
+                <Icon src={arrowIcon} alt="All products link" width={24} height={24}/>
+              </div>
             </div>
           </div>
         </Col>

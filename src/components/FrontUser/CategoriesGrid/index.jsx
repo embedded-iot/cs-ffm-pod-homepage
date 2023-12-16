@@ -222,9 +222,7 @@ export default function CategoriesGrid({
     ...filters,
   };
 
-  const isAllowGridSelection =
-    true ||
-    SellerSystemService.getSystemConfigValue(
+  const isAllowGridSelection = SellerSystemService.getSystemConfigValue(
       systemConfigs,
       SYSTEM_CONFIG_VALUE.PUBLIC_VIEW_PRODUCT_DETAIL,
     ) !== "false";

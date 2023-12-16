@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import "./style.scss";
+import Icon from "../Icon";
 
 export default function ImageView({ img, className,...restProps }) {
   const ref = useRef(null);
@@ -30,7 +31,7 @@ export default function ImageView({ img, className,...restProps }) {
       ref={ref}
       style={{backgroundImage: `url(${img})`, backgroundSize: ""}}
     >
-      <img src={img} />
+      <Icon src={img} width={400} height={400}/>
     </figure>
   );
 }

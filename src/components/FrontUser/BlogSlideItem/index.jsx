@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Row } from 'antd';
-
+import Icon from "components/Common/Icon";
 import './style.scss';
 
 export default function BlogSlideItem({ data = {}, onClick = () => {}, className = '', hasWrap = true, imageHeight = 'autp'  }) {
@@ -8,7 +8,7 @@ export default function BlogSlideItem({ data = {}, onClick = () => {}, className
   return (
     <Row gutter={hasWrap ? [0, 0] : [64, 0] } className={`blog-slide-item__wrapper ${className}`} onClick={() => onClick(data)}>
       <Col span={hasWrap ? 24 : 14 } className='blog-slide-item__image'>
-        <img src={image} alt={title} style={{ height: imageHeight}} />
+        <Icon src={image} alt={title} width={400} height={400} style={{ height: imageHeight}} />
       </Col>
       <Col span={hasWrap ? 24 : 10 } className={hasWrap ? 'blog-slide-item__wrap-contents' : 'blog-slide-item__no-wrap-contents'}>
         { hasWrap ? (

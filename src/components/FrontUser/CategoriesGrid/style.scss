@@ -7,10 +7,10 @@
       }
     }
   }
-  &__filters-sibar {
+  &__filters-sibar.ant-col {
     flex-basis: 250px;
   }
-  &__product-list {
+  &__product-list.ant-col {
     flex-grow: 1;
     max-width: none;
     padding: 16px;
