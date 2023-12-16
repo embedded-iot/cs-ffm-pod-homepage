@@ -2,8 +2,10 @@
   "private": true,
   "scripts": {
     "dev": "next",
-    "build": "next build",
-    "start": "next start"
+    "build": "env-cmd -f .env.prod next build",
+    "start": "env-cmd -f .env.prod next start",
+    "build-stg": "env-cmd -f .env.stg next build",
+    "start-stg": "env-cmd -f .env.stg next start"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.18.1",
@@ -13,6 +15,7 @@
     "axios": "^1.6.2",
     "classnames": "^2.3.2",
     "connected-next-router": "^5.0.0",
+    "env-cmd": "^10.1.0",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.43",
     "next": "latest",
