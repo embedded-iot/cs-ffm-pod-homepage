@@ -1,27 +1,27 @@
-# Ant Design example
+# POD Project with NextJs and Ant design
 
-This example shows how to use Next.js along with [Ant Design of React](https://ant.design). This is intended to show the integration of this UI toolkit with the Framework.
+
+## Run your local
+```bash
+yarn dev
+```
+
 
 ## Deploy your own
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-ant-design)
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-ant-design&project-name=with-ant-design&repository-name=with-ant-design)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
+## How to deploy in Stage env
 ```bash
-npx create-next-app --example with-ant-design with-ant-design-app
+yarn build-stg
 ```
 
 ```bash
-yarn create next-app --example with-ant-design with-ant-design-app
+yarn start-stg
+```
+## How to deploy in Production env
+```bash
+yarn build
 ```
 
 ```bash
-pnpm create next-app --example with-ant-design with-ant-design-app
+yarn start
 ```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
