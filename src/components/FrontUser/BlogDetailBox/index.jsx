@@ -1,31 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Col, Row } from 'antd';
-import { FrontUserPostsService } from 'services';
+import React from 'react';
 import PlainText from 'components/Common/PlainText';
 import { RESPONSIVE_MEDIAS} from 'components/contants';
 import { useMediaQuery } from 'react-responsive';
-import BlogsGrid from 'components/FrontUser/BlogsGrid';
 import ReactHtmlParser from 'react-html-parser';
 
 import './style.scss';
 
-export default function BlogDetailBox({ defaultBlog = null, blogId, onSuccessCallback }) {
-  const [blog, setBlog] = useState(defaultBlog);
+export default function BlogDetailBox({ blog }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
-  const getBlogDetail = () => {
-    FrontUserPostsService.getBlog(blogId, response => {
-      setBlog(response);
-      onSuccessCallback(response);
-    })
-  }
-  useEffect(() => {
-    getBlogDetail();
-    // eslint-disable-next-line
-  }, [blogId]);
 
-  if (!blog) {
-    return null;
-  }
   return (
     <div className={`${!isMobile && 'blog-detail-box__wrapper'}`}>
       { !!blog.headerTitle && (

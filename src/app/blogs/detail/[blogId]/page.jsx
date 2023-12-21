@@ -15,8 +15,12 @@ export async function generateMetadata({ params, searchParams }) {
   };
 }
 
-const ProductDetail = (props) => {
-  return <FrontUserBlogDetailPage />;
+const ProductDetail = async ({ params }) => {
+  const { blogId } = params;
+  const blog = await new Promise((resolve, reject) =>
+    FrontUserPostsService.getBlog(blogId, resolve, reject),
+  );
+  return <FrontUserBlogDetailPage blog={blog} />;
 };
 
 export default ProductDetail;

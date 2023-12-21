@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import BlogDetailBox from 'components/FrontUser/BlogDetailBox';
 import { useMediaQuery } from 'react-responsive';
@@ -9,11 +9,9 @@ import {useParams, useRouter} from "next/navigation";
 import "./style.scss";
 
 
-function BlogDetailPage(props) {
-  const { blogId } = useParams();
+function BlogDetailPage({ blog }) {
   const router = useRouter();
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
-  const [blog, setBlog] = useState(null);
   const breadcrumbRoutes = useMemo(() => {
     const items = [
       {
@@ -37,9 +35,8 @@ function BlogDetailPage(props) {
                        routes={breadcrumbRoutes}
         />
         <BlogDetailBox
-          blogId={blogId}
+          blog={blog}
           redirectTo={router.push}
-          onSuccessCallback={setBlog}
         />
       </div>
     </div>
