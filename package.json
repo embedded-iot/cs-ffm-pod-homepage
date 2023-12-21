@@ -32,7 +32,8 @@
     "react-router-dom": "^6.20.1",
     "redux": "^5.0.0",
     "sass": "^1.69.5",
-    "styled-components": "^6.1.1"
+    "styled-components": "^6.1.1",
+    "ua-parser-js": "^1.0.37"
   },
   "devDependencies": {
     "@types/node": "^20.4.5",

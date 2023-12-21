@@ -52,6 +52,9 @@
 .public-layout__wrapper {
   .page-wrapper {
     padding: 50px 45px;
+    @include media_mobile {
+      padding: 0;
+    }
   }
   .page-wrapper--full-width {
     padding: 0;
@@ -62,6 +65,9 @@
 .public-layout__wrapper--mobile {
   .page-wrapper {
     padding: 32px 0 40px;
+    @include media_mobile {
+      padding: 0;
+    }
     .page-contents {
       //padding: 0 16px;
     }

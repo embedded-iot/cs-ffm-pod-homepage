@@ -1,21 +1,15 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import BreadcrumbBox from "components/Common/BreadcrumbBox";
-import { RESPONSIVE_MEDIAS, ROUTERS } from "components/contants";
+import { ROUTERS } from "components/contants";
 import ProductDetailBox from "components/FrontUser/ProductDetailBox";
 import RelatedProductForProductDetail from "components/FrontUser/RelatedProductForProductDetail";
-import { useMediaQuery } from "react-responsive";
-import { useParams, useRouter } from "next/navigation";
-import { useAppSelector } from "store/hooks";
+import {useRouter} from "next/navigation";
 
 import "./style.scss";
 
-function ProductDetailPage(props) {
-  const { productId } = useParams();
-  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
-  const [product, setProduct] = useState(null);
-  const systemConfigs = useAppSelector((state) => state.data.systemConfigs);
+function ProductDetailPage({ product, relatedProducts, deviceType }) {
   const router = useRouter();
   const breadcrumbRoutes = useMemo(() => {
     const defaultRouters = [
@@ -35,16 +29,9 @@ function ProductDetailPage(props) {
     return [...defaultRouters, ...categoryRouters];
   }, [product]);
 
-  const selectedCategory = useMemo(() => {
-    const categories = product?.productsCategories || [];
-    return categories.length ? categories[categories.length - 1] : null;
-  }, [product]);
-
   return (
     <div
-      className={`${
-        isMobile ? "page-wrapper--full-width" : "page-wrapper"
-      } product-detail-page__wrapper`}
+      className={`page-wrapper product-detail-page__wrapper`}
     >
       <div className="page-contents">
         <BreadcrumbBox
@@ -52,18 +39,13 @@ function ProductDetailPage(props) {
           routes={breadcrumbRoutes}
         />
         <ProductDetailBox
-          productId={productId}
-          redirectTo={router.push}
-          successCallback={setProduct}
-          systemConfigs={systemConfigs}
+          product={product}
         />
-        {!!selectedCategory && (
-          <RelatedProductForProductDetail
-            categoryId={selectedCategory.categoryId}
-            productId={productId}
-            redirectTo={router.push}
-          />
-        )}
+        <RelatedProductForProductDetail
+          products={relatedProducts}
+          deviceType={deviceType}
+          redirectTo={router.push}
+        />
       </div>
     </div>
   );

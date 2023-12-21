@@ -46,9 +46,9 @@ export default function ProductInfo({ systemConfigs, product = {}, isAddOrder = 
   }, [productOptions]);
 
   const buttonList = [
-    !!product.designUrl && <Button className="product-info__download-button" type='primary' icon={<DownloadOutlined />} onClick={() => download(product.designUrl)}>Download Mockup & Template Design</Button>,
-    false && isAddOrder && <Button type="primary" icon={<Icon src={plusIcon} width={24} height={24} />} onClick={() => onAddOrder(product.id)}>Order now</Button>,
-    !!contactSupportLink && <Button onClick={() => window.open(contactSupportLink, "_blank")}>Contact support</Button>,
+    !!product.designUrl && <Button className="product-info__download-button" key={"download"} type='primary' icon={<DownloadOutlined />} onClick={() => download(product.designUrl)}>Download Mockup & Template Design</Button>,
+    false && isAddOrder && <Button type="primary" key={"add_order"}  icon={<Icon src={plusIcon} width={24} height={24} />} onClick={() => onAddOrder(product.id)}>Order now</Button>,
+    !!contactSupportLink && <Button key={"contact"}  onClick={() => window.open(contactSupportLink, "_blank")}>Contact support</Button>,
   ];
   return (
     <div className={`product-info__wrapper`}>

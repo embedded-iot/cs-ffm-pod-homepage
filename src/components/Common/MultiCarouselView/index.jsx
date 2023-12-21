@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -5,7 +7,7 @@ import { Button } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import './style.scss';
 
-export default function MultiCarouselView({ children, deviceType, containerClass, responsive, onNextClick = () => {}, onPreviousClick = () => {},...restProps }) {
+export default function MultiCarouselView({ children, ssr = true, deviceType = '', containerClass, responsive, onNextClick = () => {}, onPreviousClick = () => {},...restProps }) {
   const responsiveProps = {
     desktop: {
       breakpoint: { max: 3000, min: 1366 },
@@ -68,11 +70,13 @@ export default function MultiCarouselView({ children, deviceType, containerClass
   };
   return (
     <Carousel
+      ssr={ssr}
       additionalTransfrom={0}
       arrows
       autoPlaySpeed={3000}
       centerMode={false}
       className=""
+      deviceType={deviceType}
       containerClass={`carousel-container ${containerClass}`}
       dotListClass=""
       draggable

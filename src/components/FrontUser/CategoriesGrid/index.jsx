@@ -21,8 +21,8 @@ import CategoriesButtonsFilters from "components/FrontUser/CategoriesGrid/TopBut
 import TopButtonsFilters from "components/FrontUser/CategoriesGrid/TopButtonsFilters/index.jsx";
 import { sortByItems } from "components/FrontUser/CategoriesGrid/SortByDropdownMenu";
 
-const gridItemTemplate = ({ item, index }) => {
-  return <CategoryItem {...item} key={index} />;
+const gridItemTemplate = ({ item }) => {
+  return <CategoryItem item={item}/>;
 };
 
 export default function CategoriesGrid({

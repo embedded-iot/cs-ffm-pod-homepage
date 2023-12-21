@@ -1,6 +1,7 @@
-import React, {useEffect, useMemo, useState} from 'react';
+"use client";
+
+import React, {useMemo} from 'react';
 import { Col, Row } from 'antd';
-import { FrontUserCategoriesService } from 'services';
 import ProductImagesPreview from './ProductImagesPreview';
 import ProductInfo from './ProductInfo';
 import PlainText from 'components/Common/PlainText';
@@ -11,30 +12,16 @@ import { useMediaQuery } from 'react-responsive';
 import './style.scss';
 import TabsBox from "components/Common/TabsBox";
 import ReactHtmlParser from "react-html-parser";
+import {useAppSelector} from "store/hooks";
 
-export default function ProductDetailBox({ systemConfigs, defaultProduct = null, isAddOrder, productId, redirectTo, successCallback }) {
-  const [product, setProduct] = useState(defaultProduct);
+export default function ProductDetailBox({ product, isAddOrder }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
-  const getProductDetail = () => {
-    FrontUserCategoriesService.getProductDetail(productId, response => {
-      setProduct(response);
-      successCallback(response);
-    })
-  }
-  useEffect(() => {
-    getProductDetail();
-    // eslint-disable-next-line
-  }, [productId]);
-
+  const systemConfigs = useAppSelector((state) => state.data.systemConfigs);
   const sectionItems = useMemo(() => (product?.sections || []).map((item, index) => ({
     key: index,
     label: item.name,
     children: <PlainText>{ReactHtmlParser(item.content)}</PlainText>
   })), [product]);
-
-  if (!product) {
-    return null;
-  }
 
   const handleAddOrder = productId => {
     window.open(getSellerUrl() + ROUTERS.LOGIN + `?redirect=${ROUTERS.SELLER_ORDERS + '/0/productId/' + productId}`, '_self');

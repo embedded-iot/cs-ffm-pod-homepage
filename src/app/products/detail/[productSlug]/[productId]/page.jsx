@@ -2,9 +2,10 @@ import React from "react";
 import FrontUserProductDetailPage from "containers/ProductDetailPage";
 import {
   FrontUserCategoriesService,
-  FrontUserStaticBlogsService,
 } from "services";
 import { WEBSITE_NAME } from "components/contants";
+import UAParser from "ua-parser-js";
+import { headers } from "next/headers"
 
 export async function generateMetadata({ params, searchParams }) {
   const { productId } = params;
@@ -16,8 +17,40 @@ export async function generateMetadata({ params, searchParams }) {
   };
 }
 
-const ProductDetail = (props) => {
-  return <FrontUserProductDetailPage />;
+const ProductDetail = async ({ params }) => {
+  const parser = new UAParser();
+  const headersList = headers()
+  const userAgent = headersList.get('user-agent')
+  parser.setUA(userAgent);
+  const result = parser.getResult();
+  const deviceType = (result.device && result.device.type) || 'desktop';
+  const { productId } = params;
+  const product = await new Promise((resolve, reject) =>
+    FrontUserCategoriesService.getProductDetail(productId, resolve, reject),
+  );
+  const categoryId = product?.productsCategories?.[product?.productsCategories?.length - 1]?.categoryId;
+  const relatedProducts = await new Promise((resolve, reject) => {
+    FrontUserCategoriesService.getCategories({
+      categoryId,
+      pageSize: 100,
+      pageNum: 1,
+      sortBy: "displayOrder",
+      sortDirection: "asc",
+    }, response => {
+      const items = response?.items?.filter(item => item.id !== productId) || [];
+      resolve(items);
+    }, reject)
+  });
+
+
+  return (
+    <FrontUserProductDetailPage
+      product={product}
+      categoryId={categoryId}
+      relatedProducts={relatedProducts || []}
+      deviceType={deviceType}
+    />
+  )
 };
 
 export default ProductDetail;

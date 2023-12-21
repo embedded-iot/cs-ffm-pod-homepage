@@ -9,7 +9,7 @@ import "./style.scss";
 
 
 const gridItemTemplate = ({ item, index }) => {
-  return <CategoryItem {...item} />
+  return <CategoryItem item={item} />
 }
 
 
