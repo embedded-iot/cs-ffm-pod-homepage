@@ -1,3 +1,19 @@
+/* devanagari */
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: normal;
+  font-weight: 400;
+  src: url(/fonts/SuisseIntl-Regular.woff2) format('woff2');
+}
+/* latin-ext */
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: normal;
+  font-weight: bold;
+  src: url(/fonts/SuisseIntl-Bold.woff2) format('woff2');
+}
+
+
 body {
  margin: 0;
 }

@@ -10,11 +10,12 @@ const GridView = ({
                 colSpan = 6,
                 className = ''
 }) => {
+  const colSpanProps = typeof colSpan === 'number' ? { span: colSpan } : colSpan;
   return (
     <Row gutter={gutter} className={`grid-view__wrapper ${className}`}>
       {
         dataSource.map((item, index) => (
-          <Col span={colSpan} key={index} onClick={() => isAllowSelection && onSelectGridItem(item)} >
+          <Col {...colSpan} key={index} onClick={() => isAllowSelection && onSelectGridItem(item)} >
             {
               gridItemTemplate({ item, index })
             }

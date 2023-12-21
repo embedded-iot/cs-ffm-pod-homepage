@@ -9,26 +9,27 @@ import {
 } from "components/contants";
 import CategoriesFilters from "./CategoriesFilters";
 import TableGrid from "components/Common/TableGrid";
-import { FrontUserCategoriesService, SellerSystemService } from "services";
+import { SellerSystemService } from "services";
 import CategoryItem from "./CategoryItem";
 import OptionsFilters from "./OptionsFilters";
 import TopCategoriesBox from "./TopCategoriesBox";
 import "./style.scss";
 import CollectionsFilters from "components/FrontUser/CategoriesGrid/CollectionsFilters";
-import SearchDrawerBox from "components/FrontUser/SearchDrawerBox/index.jsx";
 import FiltersDrawerBox from "components/FrontUser/CategoriesGrid/FiltersDrawerBox/index.jsx";
-import CategoriesButtonsFilters from "components/FrontUser/CategoriesGrid/TopButtonsFilters/index.jsx";
 import TopButtonsFilters from "components/FrontUser/CategoriesGrid/TopButtonsFilters/index.jsx";
-import { sortByItems } from "components/FrontUser/CategoriesGrid/SortByDropdownMenu";
 
 const gridItemTemplate = ({ item }) => {
   return <CategoryItem item={item}/>;
 };
 
 export default function CategoriesGrid({
+  isMobile,
+  productResponse,
+  categories,
+  collections,
+  printAreas,
+  techniques,
   RELOAD_EVENT_KEY,
-  CLEAR_EVENT_KEY,
-  successCallback,
   filterSuccessCallback,
   onFilterBreadCrumbs,
   categoryId,
@@ -38,13 +39,6 @@ export default function CategoriesGrid({
   redirectTo,
   replaceTo,
 }) {
-  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
-  const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
-  const isDesktop = useMediaQuery(RESPONSIVE_MEDIAS.EX_TABLET);
-  const [categories, setCategories] = useState([]);
-  const [collections, setCollections] = useState([]);
-  const ref = useRef({ firstLoad: false, totalCount: 0 });
-  const [totalCount, setTotalCount] = useState(0);
   const [openFilters, setOpenFilters] = useState(false);
   const [filters, setFilters] = useState({
     ...queryParams,
@@ -57,7 +51,9 @@ export default function CategoriesGrid({
     gutter: isMobile ? [16, 16] : [32, 32],
     // className: isMobile && 'box-card--mobile',
     // eslint-disable-next-line
-    colSpan: (isMobile && 12) || (isTablet && 12) || (isDesktop && 8) || 4,
+    colSpan: {
+      xs: 12, xl:8, xxl: 4
+    },
     searchPlaceholder: "Search in Object Mockups",
     gridItemTemplate: gridItemTemplate,
     getDataFunc: (params, successCallback, failureCallback) => {
@@ -69,8 +65,6 @@ export default function CategoriesGrid({
         sortByValue,
         ...restParams
       } = params || {};
-      const { sortBy, sortDirection } =
-        sortByItems.find((item) => item.key === sortByValue)?.params || {};
       const requestParams = cui.removeEmpty({
         ...restParams,
         pageSize: 24,
@@ -85,20 +79,9 @@ export default function CategoriesGrid({
       replaceTo({
         search: "?" + new URLSearchParams(newQueryParams),
       });
-      FrontUserCategoriesService.getCategories(
-        {
-          ...requestParams,
-          sortBy: sortBy || "displayOrder",
-          sortDirection: sortDirection || "asc",
-        },
-        successCallback,
-        failureCallback,
-      );
     },
     successCallback: (response) => {
-      successCallback(response?.totalCount || 0);
-      setTotalCount(response?.totalCount || 0);
-      ref.current.firstLoad = true;
+
     },
     failureCallback: (error) => {
       console.log(error);
@@ -120,10 +103,6 @@ export default function CategoriesGrid({
 
   const reloadTable = (filters = {}) => {
     events.publish(RELOAD_EVENT_KEY, filters);
-  };
-
-  const clearTable = (filters = {}) => {
-    events.publish(CLEAR_EVENT_KEY);
   };
 
   const onFiltersChange = (filters) => {
@@ -150,24 +129,6 @@ export default function CategoriesGrid({
       ).length,
     [filterOptionsValues],
   );
-
-  useEffect(() => {
-    if (ref.current.firstLoad) {
-      reloadTable({
-        ...queryParams,
-        categoryId: categoryId,
-        collectionId: collectionId,
-        pageNum: 1,
-      });
-    }
-  }, [categoryId, collectionId]);
-
-  useEffect(() => {
-    if (ref.current.firstLoad && !queryParams?.sortByValue) {
-      setFilters({});
-      clearTable();
-    }
-  }, [queryParams?.sortByValue]);
 
   useEffect(() => {
     const selectedCollection = collections.find(
@@ -230,27 +191,31 @@ export default function CategoriesGrid({
     <Row
       gutter={isMobile ? [0, 0] : [50, 0]}
       className={"categories-grid__wrapper"}
+      wrap={isMobile}
     >
       {!isMobile && (
         <Col
-          span={isMobile ? 24 : 6}
+          xs={24}
+          flex={"250px"}
           className="categories-grid__filters-sibar"
         >
           {!collectionId && (
             <CategoriesFilters
+              categories={categories}
               categoryId={categoryId}
               redirectTo={redirectTo}
-              successCallback={setCategories}
             />
           )}
           {!categoryId && (
             <CollectionsFilters
+              collections={collections}
               collectionId={collectionId}
               redirectTo={redirectTo}
-              successCallback={setCollections}
             />
           )}
           <OptionsFilters
+            printAreas={printAreas}
+            techniques={techniques}
             filters={filterOptionsValues}
             onChange={onFiltersChange}
           />
@@ -263,12 +228,11 @@ export default function CategoriesGrid({
               categoryId={categoryId}
               collectionId={collectionId}
               redirectTo={redirectTo}
-              successCallback={setCategories}
             />
           </Col>
           <Col span={24}>
             <div className="categories-grid__options-filter">
-              <span>{`${totalCount} products`}</span>
+              <span>{`${productResponse?.totalCount || 0} products`}</span>
               <span
                 className="cursor-pointer"
                 onClick={() => setOpenFilters(true)}
@@ -286,15 +250,17 @@ export default function CategoriesGrid({
       )}
       {openFilters && (
         <FiltersDrawerBox
+          printAreas={printAreas}
+          techniques={techniques}
           redirectTo={redirectTo}
           open={openFilters}
           filters={filterOptionsValues}
           onOk={handleFilterChange}
-          totalCount={totalCount}
+          totalCount={productResponse?.totalCount || 0}
           onCancel={() => setOpenFilters(false)}
         />
       )}
-      <Col span={isMobile ? 24 : 18} className="categories-grid__product-list">
+      <Col flex="auto" className="categories-grid__product-list">
         <Row gutter={isMobile ? [0, 16] : [32, 32]}>
           {!categoryId && !collectionId && (
             <Col
@@ -314,14 +280,14 @@ export default function CategoriesGrid({
               paginationConfig={paginationConfig}
               actionButtonList={{}}
               defaultParams={defaultParams}
-              defaultData={{}}
+              defaultData={productResponse}
               headerActionsConfig={{}}
               isShowPagination={true}
+              isAllowUpdateDefaultData={true}
               isAllowGridSelection={isAllowGridSelection}
               onSelectedItemsChange={onSelectedItemsChange}
               onSelectGridItem={onSelectGridItem}
               RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
-              CLEAR_EVENT_KEY={CLEAR_EVENT_KEY}
             />
             <br />
           </Col>

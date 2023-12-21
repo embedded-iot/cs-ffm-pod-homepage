@@ -5,16 +5,18 @@ import { LeftOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import "./style.scss";
 
-export default function CollectionsFilters({ className, redirectTo = () => {}, successCallback = () => {}, collectionId }) {
-  const [collections, setCollections] = useState([]);
-  const [selectedCollection, setSelectedCollection] = useState(collectionId);
-  const transformCollection = collection => {
-    return {
-      ...collection,
-      label: collection.name,
-      value: collection.id,
-    }
+const transformCollection = collection => {
+  return {
+    ...collection,
+    label: collection.name,
+    value: collection.id,
   }
+}
+
+export default function CollectionsFilters({ collections: defaultCollections, className, redirectTo = () => {}, successCallback = () => {}, collectionId }) {
+  const [collections, setCollections] = useState((defaultCollections || []).map(transformCollection));
+  const [selectedCollection, setSelectedCollection] = useState(collectionId);
+
   const getCollectionsFilter = () => {
     FrontUserCategoriesService.getCollections(response => {
       setCollections(response.map(transformCollection));

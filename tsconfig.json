@@ -19,6 +19,9 @@
       "images": [
         "/public/images"
       ],
+      "hooks/*": [
+        "./src/hooks/*"
+      ],
       "scss/*": [
         "./src/scss/*"
       ],

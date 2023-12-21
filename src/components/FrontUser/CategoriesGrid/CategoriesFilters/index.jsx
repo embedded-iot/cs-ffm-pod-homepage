@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { FrontUserCategoriesService } from 'services';
+import React, { useState, useEffect } from 'react';
 import "./style.scss";
 import {ROUTERS} from "components/contants";
 import { LeftOutlined, CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons'
 import { Button } from 'antd';
 
-export default function CategoriesFilters({ className, redirectTo = () => {}, successCallback = () => {}, categoryId = '' }) {
-  const [categories, setCategories] = useState([]);
+export default function CategoriesFilters({ categories: defaultCategories, className, redirectTo = () => {}, categoryId = '' }) {
   const [selectedCategory, setSelectedCategory] = useState(categoryId ? +categoryId : '');
   const transformCategoryTree = category => {
     return {
@@ -17,11 +15,8 @@ export default function CategoriesFilters({ className, redirectTo = () => {}, su
       child: (category.child || []).map(transformCategoryTree)
     }
   }
-  const getCategoriesFilter = () => {
-    FrontUserCategoriesService.getCategoriesTree(response => {
-      setCategories(response.map(transformCategoryTree));
-    }, () => {})
-  }
+
+  const [categories, setCategories] = useState((defaultCategories || []).map(transformCategoryTree));
 
   const onSelectFilter = (category) => {
     setSelectedCategory(category.value);
@@ -40,14 +35,6 @@ export default function CategoriesFilters({ className, redirectTo = () => {}, su
       };
     }))
   }
-
-  useEffect(() => {
-    getCategoriesFilter();
-  }, []);
-
-  useEffect(() => {
-    successCallback(categories);
-  }, [categories]);
 
   useEffect(() => {
     setSelectedCategory(categoryId);

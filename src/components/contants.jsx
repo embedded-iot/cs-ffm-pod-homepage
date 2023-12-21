@@ -916,3 +916,55 @@ export const TRACKING_ORDER_COLORS = [
 export const TIMEZONE_STATE_VALUES = {
   'UTC +0' : 'Etc/GMT-0'
 }
+
+export const sortByItems = [
+  {
+    key: "Recommended",
+    label: "Recommended",
+    params: {
+      sortBy: "displayOrder",
+      sortDirection: "desc"
+    }
+  },
+  {
+    key: "Newest",
+    label: "Newest",
+    params: {
+      sortBy: "id",
+      sortDirection: "desc"
+    }
+  },
+  {
+    key: "NameAZ",
+    label: "Name (A-Z)",
+    params: {
+      sortBy: "name",
+      sortDirection: "asc"
+    }
+  },
+  {
+    key: "NameZA",
+    label: "Name (Z-A)",
+    params: {
+      sortBy: "name",
+      sortDirection: "desc"
+    }
+  },
+  {
+    key: "BasePriceHighLow",
+    label: "Base price (High-low)",
+    params: {
+      sortBy: "price",
+      sortDirection: "desc"
+    }
+  },
+  {
+    key: "BasePriceLowHigh",
+    label: "Base price (Low-high)",
+    params: {
+      sortBy: "price",
+      sortDirection: "asc"
+    }
+  },
+];
+

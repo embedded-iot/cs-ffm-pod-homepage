@@ -18,7 +18,7 @@ export default function TopCategoriesBox({ categories, redirectTo = () => {}, })
     <Row gutter={isMobile ? [16, 16] : [32, 32]} className="top-categories__wrapper" style={{ height }}>
       {
         topCategories.map(category => (
-          <Col span={8}  className="top-categories__item" onClick={() => handleClick(category)}>
+          <Col key={category.categoryId} span={8}  className="top-categories__item" onClick={() => handleClick(category)}>
             <img alt={category.name} src={category.avatar}  className="top-categories__img" />
             <div className="top-categories__label">{category.name}</div>
           </Col>

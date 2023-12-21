@@ -2,8 +2,7 @@
 
 import React, { useMemo, useState } from 'react';
 import CategoriesGrid from 'components/FrontUser/CategoriesGrid';
-import { useMediaQuery } from 'react-responsive';
-import {RESPONSIVE_MEDIAS, ROUTERS} from 'components/contants';
+import {ROUTERS} from 'components/contants';
 
 import './style.scss';
 import PublicPageHeader from "components/Share/PublicPageHeader";
@@ -14,12 +13,10 @@ import {useParams, useRouter, useSearchParams} from "next/navigation";
 import {useAppSelector} from "store/hooks";
 import {usePathname} from "next/dist/client/components/navigation";
 
-
 const RELOAD_EVENT_KEY = 'RELOAD_PRODUCTS_TABLE_EVENT_KEY';
 const CLEAR_EVENT_KEY = 'CLEAR_PRODUCTS_TABLE_EVENT_KEY';
 
-
-function CategoriesPage() {
+function CategoriesPage({ isMobile, isTablet, isDesktop, productResponse, categories, collections, printAreas, techniques }) {
   const params = useParams();
   const searchParams = useSearchParams();
   const queryParams = queryString.parse(searchParams.toString());
@@ -27,11 +24,9 @@ function CategoriesPage() {
   const pathName = usePathname();
   const { categoryId, collectionId } = params;
   const systemConfigs = useAppSelector(state => state.data.systemConfigs);
-  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
-  const [totalCount, setTotalCount] = useState(0);
   const [filterName, setFilterName] = useState('');
   const [filterBreadcrumbs, setFilterBreadcrumbs] = useState([]);
-  const title = `Design & Sell ${filterName || 'Products'} ${isMobile ? '' : `(${totalCount})`}`;
+  const title = `Design & Sell ${filterName || 'Products'} ${isMobile ? '' : `(${productResponse?.totalCount || 0})`}`;
   const breadcrumbRouters = useMemo(() => {
     return [
       {
@@ -44,7 +39,8 @@ function CategoriesPage() {
 
   const handleSortBy = (sortByValue) => {
     events.publish(RELOAD_EVENT_KEY, {
-      sortByValue
+      sortByValue,
+      pageNum: 1
     });
   }
 
@@ -72,6 +68,14 @@ function CategoriesPage() {
       />
       <div className="page-contents">
         <CategoriesGrid
+          isMobile={isMobile}
+          isTablet={isTablet}
+          isDesktop={isDesktop}
+          productResponse={productResponse}
+          categories={categories}
+          collections={collections}
+          printAreas={printAreas}
+          techniques={techniques}
           CLEAR_EVENT_KEY={CLEAR_EVENT_KEY}
           RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
           categoryId={categoryId ? +categoryId : ''}
@@ -79,7 +83,6 @@ function CategoriesPage() {
           queryParams={queryParams}
           redirectTo={router.push}
           replaceTo={replaceTo}
-          successCallback={setTotalCount}
           systemConfigs={systemConfigs}
           filterSuccessCallback={setFilterName}
           onFilterBreadCrumbs={setFilterBreadcrumbs}

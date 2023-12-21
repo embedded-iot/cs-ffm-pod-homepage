@@ -4,8 +4,8 @@ import {
   FrontUserCategoriesService,
 } from "services";
 import { WEBSITE_NAME } from "components/contants";
-import UAParser from "ua-parser-js";
-import { headers } from "next/headers"
+import useMedia from "hooks/useMedia";
+
 
 export async function generateMetadata({ params, searchParams }) {
   const { productId } = params;
@@ -18,12 +18,7 @@ export async function generateMetadata({ params, searchParams }) {
 }
 
 const ProductDetail = async ({ params }) => {
-  const parser = new UAParser();
-  const headersList = headers()
-  const userAgent = headersList.get('user-agent')
-  parser.setUA(userAgent);
-  const result = parser.getResult();
-  const deviceType = (result.device && result.device.type) || 'desktop';
+  const { deviceType } = useMedia();
   const { productId } = params;
   const product = await new Promise((resolve, reject) =>
     FrontUserCategoriesService.getProductDetail(productId, resolve, reject),

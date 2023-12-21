@@ -6,8 +6,8 @@ export const metadata = {
   title: `Blog list - ${WEBSITE_NAME}`,
 };
 
-const Categories = (props) => {
+const BlogsPage = (props) => {
   return <FrontUserBlogsPage />;
 };
 
-export default Categories;
+export default BlogsPage;

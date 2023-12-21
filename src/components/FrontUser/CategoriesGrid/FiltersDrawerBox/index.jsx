@@ -1,57 +1,45 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import DrawerView, { DRAWER_TYPES } from 'components/Common/DrawerView';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import "./style.scss";
 import {FrontUserCategoriesService} from "services";
 import OptionsButtonsFilter from "./OptionsButtonsFilter";
 import {Button} from "antd";
-import { sortByItems } from 'components/FrontUser/CategoriesGrid/SortByDropdownMenu';
+import {sortByItems} from "../../../contants";
 
-export default function FiltersDrawerBox({ filters: defaultFilters, open, onOk, onCancel, totalCount }) {
-  const [options, setOptions] = useState([]);
-  const [filters, setFilters] = useState(defaultFilters || {});
-  const transformOptions = item => {
-    return {
-      ...item,
-      label: item.name,
-      value: item.id,
-    }
+const transformOptions = item => {
+  return {
+    ...item,
+    label: item.name,
+    value: item.id,
   }
-  const getOptionsFilter = () => {
-    const items = [
-      {
-        key: 'sortByValue',
-        label: "Sort By",
-        getFn: (successCallback) =>  {
-          successCallback(sortByItems.map(item => ({
-            name: item.label,
-            id: item.key,
-          })))
-        }
-      }, {
+}
+
+export default function FiltersDrawerBox({  printAreas, techniques, filters: defaultFilters, open, onOk, onCancel, totalCount }) {
+  const [filters, setFilters] = useState(defaultFilters || {});
+
+  const options = useMemo(() => [
+    {
+      key: 'sortByValue',
+      label: "Sort By",
+      options: sortByItems.map(item => ({
+        name: item.label,
+        id: item.key,
+      })).map(transformOptions)
+    }, {
       key: 'printAreaIds',
       label: "Print Area",
       multiple: true,
       toggle: true,
-      getFn: FrontUserCategoriesService.getPrintAreas
+      options: printAreas.map(transformOptions)
     }, {
       key: 'techniqueIds',
       label: "Techniques",
       multiple: true,
       toggle: true,
-      getFn: FrontUserCategoriesService.getTechniques
-    }]
-    Promise.all(items.map(item => new Promise((resolve, reject) => {
-      item.getFn((response) => {
-        resolve({
-          ...item,
-          options: response.map(transformOptions)
-        })
-      }, reject)
-    }))).then(response => {
-      setOptions(response)
-    })
-  }
+      options: techniques.map(transformOptions)
+    }], [printAreas, techniques]);
+
 
   const handleResetFilters = () => {
     const newFilters = {
@@ -71,10 +59,6 @@ export default function FiltersDrawerBox({ filters: defaultFilters, open, onOk, 
     setFilters(newFilters);
     onOk(newFilters);
   }
-
-  useEffect(() => {
-    getOptionsFilter();
-  }, []);
 
   return (
     <DrawerView
