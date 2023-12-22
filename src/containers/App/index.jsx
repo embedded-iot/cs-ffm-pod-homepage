@@ -45,10 +45,13 @@ const AppWrapper = styled.div`
 `;
 
 
-const App = ({ children, ...props }) => {
+const App = ({ children}) => {
   const [isLoadedCurrentEvent, setIsLoadedCurrentEvent] = useState(false);
   const [isLoadingSpinner, setIsLoadingSpinner] = useState(false);
   const systemConfigs = useAppSelector(state => state.data.systemConfigs);
+  const isMobile = useAppSelector(state => state.data.isMobile);
+  const isTablet = useAppSelector(state => state.data.isTablet);
+  const isDesktop = useAppSelector(state => state.data.isDesktop);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const currentRouter = usePathname();
@@ -98,15 +101,13 @@ const App = ({ children, ...props }) => {
   }
 
   useEffect(() => {
-    let notificationInterval = null;
     getSystemConfigs();
     const systemConfigsListener = systemConfigsListenerFunc();
     return () => {
-      notificationInterval && clearInterval(notificationInterval);
       systemConfigsListener && systemConfigsListener.remove();
     }
     // eslint-disable-next-line
-  }, [props.isLogin]);
+  }, []);
 
   useEffect(() => {
     getCurrentEvent();
@@ -122,6 +123,9 @@ const App = ({ children, ...props }) => {
   return (
     <AppWrapper>
       <PublicLayoutWrapper
+        isMobile={isMobile}
+        isTablet={isTablet}
+        isDesktop={isDesktop}
         header={(
           <FrontUserHeader
             logoName={WEBSITE_NAME}

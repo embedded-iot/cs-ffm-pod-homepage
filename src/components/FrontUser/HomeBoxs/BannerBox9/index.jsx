@@ -1,13 +1,10 @@
 import React from 'react';
 import bannerImg from 'public/images/home/home-16.png';
-import { Button, Col, Row } from 'antd';
-import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
-import { useMediaQuery } from 'react-responsive';
+import { Col, Row } from 'antd';
 import './style.scss';
 import Icon from "../../../Common/Icon";
 
-export default function BannerBox9({ customClass, redirectTo }) {
-  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+export default function BannerBox9({ isMobile, customClass, redirectTo }) {
   return (
     <div className={`banner-box-9__wrapper ${customClass} banner-box-9__wrapper ${isMobile && 'banner-box-9__wrapper--mobile'}`}>
       <Row>

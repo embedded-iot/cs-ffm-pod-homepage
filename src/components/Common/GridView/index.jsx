@@ -15,7 +15,7 @@ const GridView = ({
     <Row gutter={gutter} className={`grid-view__wrapper ${className}`}>
       {
         dataSource.map((item, index) => (
-          <Col {...colSpan} key={index} onClick={() => isAllowSelection && onSelectGridItem(item)} >
+          <Col {...colSpanProps} key={index} onClick={() => isAllowSelection && onSelectGridItem(item)} >
             {
               gridItemTemplate({ item, index })
             }

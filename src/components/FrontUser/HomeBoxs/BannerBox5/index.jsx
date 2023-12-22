@@ -11,9 +11,7 @@ import bannerImg1 from 'public/images/home/home-14.png';
 import Icon from "../../../Common/Icon";
 
 
-export default function BannerBox5({ customClass, redirectTo }) {
-  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
-
+export default function BannerBox5({ isMobile, customClass, redirectTo }) {
   return (
     <div className={`banner-box-5__wrapper`}>
       <div className='banner-box-5__contents'>

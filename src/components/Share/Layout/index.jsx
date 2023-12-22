@@ -3,8 +3,6 @@
 import { Layout } from 'antd';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useMediaQuery } from 'react-responsive';
-import { RESPONSIVE_MEDIAS } from 'components/contants';
 import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import {usePathname} from "next/navigation";
 
@@ -13,7 +11,7 @@ import './style.scss';
 const { Header, Footer, Content } = Layout;
 
 const TabletAndDesktopLayout = props => {
-  const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
+  const {isTablet} = props;
   return (
     <Layout className={`public-layout__wrapper ${isTablet ? 'public-layout__wrapper--tablet' : 'public-layout__wrapper--desktop'}`}>
       <Header>
@@ -70,7 +68,7 @@ const MobileLayout = props => {
 }
 
 const PublicLayoutWrapper = (props) => {
-  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+  const {isMobile} = props;
   const pathName = usePathname();
   useEffect(() => {
     window.scrollTo(0, 0);

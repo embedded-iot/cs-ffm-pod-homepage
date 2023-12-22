@@ -1,14 +1,11 @@
 import React from 'react';
-import bannerImg from 'public/images/home/home-2.png';
 import customProductImg from 'public/images/home/home-19.png';
-import { Button, Col, Row } from 'antd';
-import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
-import { useMediaQuery } from 'react-responsive';
-import './style.scss';
+import { Button} from 'antd';
+import { ROUTERS } from 'components/contants';
 import Icon from "../../../Common/Icon";
+import './style.scss';
 
-export default function BannerBox({ customClass, redirectTo }) {
-  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+export default function BannerBox({ isMobile, customClass, redirectTo }) {
   return (
     <div className={`banner-box__wrapper ${customClass} ${isMobile && 'banner-box__wrapper--mobile'}`}>
       <div className='banner-box__contents'>

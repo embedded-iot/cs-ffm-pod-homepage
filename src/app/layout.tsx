@@ -7,6 +7,7 @@ import theme from "./themeConfig";
 import App from "containers/App";
 import './globals.scss'
 import 'scss/style.scss';
+import useMedia from "hooks/useMedia";
 
 
 interface RootLayoutProps {
@@ -14,11 +15,7 @@ interface RootLayoutProps {
 }
 
 async function RootLayout({ children }: RootLayoutProps) {
-    // const currentRouter = router?.location?.pathname;
-    // const selectedRouters = [currentRouter];
-    // const routerState = useSelector(state => state.router)
-    // console.log(routerState)
-
+  const { deviceType, isMobile, isTablet, isDesktop } = useMedia();
   return (
     <html lang="en">
       <header>
@@ -44,9 +41,11 @@ async function RootLayout({ children }: RootLayoutProps) {
       </header>
       <body>
         <StyledComponentsRegistry>
-          <StoreProvider>
+          <StoreProvider value={{ deviceType, isMobile, isTablet, isDesktop }}>
             <ConfigProvider theme={theme}>
-              <App>{children}</App>
+              <App>
+                {children}
+              </App>
             </ConfigProvider>
           </StoreProvider>
         </StyledComponentsRegistry>

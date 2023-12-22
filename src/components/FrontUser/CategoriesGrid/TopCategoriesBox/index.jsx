@@ -4,11 +4,8 @@ import "./style.scss";
 import {RESPONSIVE_MEDIAS, ROUTERS} from "components/contants";
 import {useMediaQuery} from "react-responsive";
 
-export default function TopCategoriesBox({ categories, redirectTo = () => {}, }) {
-  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
-  const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
-  const isDesktop = useMediaQuery(RESPONSIVE_MEDIAS.EX_TABLET);
-  const height = isMobile && 200 || isTablet && 200 || isDesktop && 200 || 320;
+export default function TopCategoriesBox({ isMobile, categories, redirectTo = () => {}, }) {
+  const height = isMobile && 200 || 320;
   const handleClick = (category) => {
     const { categorySlug, categoryId } = category;
     redirectTo(ROUTERS.FRONT_USER_ALL_PRODUCTS + `/category/${categorySlug}/${categoryId}`);
