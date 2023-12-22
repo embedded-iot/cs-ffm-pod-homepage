@@ -1,0 +1,55 @@
+image: duchuyta/debian:bullseye-patch-1.0.1
+
+stages:
+  - deploy-stg
+  - deploy-prd
+
+cache:
+  paths:
+    - node_modules/
+
+variables:
+  # PRD
+  PRD_SSH_USER: "root"
+  PRD_SSH_IP: "42.96.5.201"
+  PRD_SSH_PORT: "26266"
+
+  # DEV
+  DEV_SSH_USER: "root"
+  DEV_SSH_IP: "139.162.6.19"
+  DEV_SSH_PORT: "22"
+
+
+before_script:
+  - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+
+deploy-stg:
+  stage: deploy-stg
+  environment:
+    name: staging
+  variables:
+    SSH_USER: $DEV_SSH_USER
+    SSH_IP: $DEV_SSH_IP
+    SSH_PORT: $DEV_SSH_PORT
+  script:
+    - yarn install
+    - yarn run build-stg
+    - rsync -avzh --progress -e "ssh -p ${SSH_PORT}" build/ ${SSH_USER}@${SSH_IP}:/var/www/html/pod.zclouds.vn/
+  only:
+    - develop
+
+deploy-prd:
+  stage: deploy-prd
+  environment:
+    name: production
+  variables:
+    SSH_USER: $PRD_SSH_USER
+    SSH_IP: $PRD_SSH_IP
+    SSH_PORT: $PRD_SSH_PORT
+  script:
+    - yarn install
+    - yarn run build
+    - rsync -avzh --progress -e "ssh -p ${SSH_PORT}" build/ ${SSH_USER}@${SSH_IP}:/var/www/html/monsprints.com/
+  only:
+    - master
