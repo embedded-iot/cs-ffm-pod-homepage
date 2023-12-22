@@ -4,14 +4,11 @@ import image2 from 'public/images/home/bag_alt_fill.svg';
 import image3 from 'public/images/home/d3_box_fill.svg';
 import image4 from 'public/images/home/box_alt_fill.svg';
 import { Button, Col, Row } from 'antd';
-import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
-import { useMediaQuery } from 'react-responsive';
 
 import './style.scss';
 import Icon from 'components/Common/Icon';
 
-export default function BannerBox3({ customClass, redirectTo }) {
-  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+export default function BannerBox3({ isMobile, customClass, redirectTo }) {
   return (
     <div className={`banner-box-7__wrapper`}>
       <div className='banner-box-7__contents'>

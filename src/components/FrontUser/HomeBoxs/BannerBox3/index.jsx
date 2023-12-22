@@ -1,14 +1,11 @@
 import React from 'react';
 import expandUpIcon from 'public/images/home/done_ring_round_fill.svg';
-import { Button, Col, Row } from 'antd';
-import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
-import { useMediaQuery } from 'react-responsive';
+import {  Col, Row } from 'antd';
 
 import './style.scss';
 import Icon from 'components/Common/Icon';
 
-export default function BannerBox3({ customClass, redirectTo }) {
-  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+export default function BannerBox3({isMobile, customClass, redirectTo }) {
   return (
     <div className={`banner-box-3__wrapper`}>
       <Row gutter={[32, 32]}>

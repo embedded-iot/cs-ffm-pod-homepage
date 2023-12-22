@@ -3,24 +3,24 @@ import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import TableGrid from 'components/Common/TableGrid';
-import { FrontUserCategoriesService } from 'services';
 import TopCategoryItem from './TopCategoryItem';
 
 const gridItemTemplate = ({ item, index }) => {
   return <TopCategoryItem {...item} />
 }
 
-export default function TopCategoriesGrid({ className, redirectTo }) {
+export default function TopCategoriesGrid({ topCategories, className, redirectTo }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
-  const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   const RELOAD_EVENT_KEY = 'RELOAD_TOP_CATEGORIES_TABLE_EVENT_KEY';
   const gridConfig = {
     gutter: isMobile ? [16, 16] : [24, 40],
     // eslint-disable-next-line
-    colSpan: isMobile && 12 || isTablet && 8 || 6,
+    colSpan: {
+      xs: 12, xl: 8, xxl: 6
+    },
     gridItemTemplate: gridItemTemplate,
     getDataFunc: (params, successCallback, failureCallback) => {
-      FrontUserCategoriesService.getTopCategories(successCallback, failureCallback)
+
     },
     successCallback: (response) => {
     },
@@ -40,9 +40,10 @@ export default function TopCategoriesGrid({ className, redirectTo }) {
                paginationConfig={{}}
                actionButtonList={{}}
                defaultParams={{}}
-               defaultData={{}}
+               defaultData={topCategories}
                headerActionsConfig={{}}
                isShowPagination={false}
+               isAllowUpdateDefaultData={true}
                onSelectedItemsChange={() => {}}
                onSelectGridItem={handleClick}
                RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
