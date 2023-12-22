@@ -32,8 +32,9 @@ export default function SelectButtonList(
       className={classNames("select-button-list__wrapper", className)}
       {...restProps}
     >
-      {!!buttonList.length && buttonList.map((button) => (
+      {!!buttonList.length && buttonList.map((button, index) => (
         <Button
+          key={index}
           className={classNames({
             "selected": (multiple && selectedValue.includes(button.value)) || (!multiple && selectedValue === button.value)
           })}

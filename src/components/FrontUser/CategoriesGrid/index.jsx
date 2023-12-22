@@ -227,6 +227,8 @@ export default function CategoriesGrid({
             <TopButtonsFilters
               categoryId={categoryId}
               collectionId={collectionId}
+              categories={categories}
+              collections={collections}
               redirectTo={redirectTo}
             />
           </Col>
@@ -268,6 +270,7 @@ export default function CategoriesGrid({
               style={{ display: categories.length ? "block" : "none" }}
             >
               <TopCategoriesBox
+                isMobile={isMobile}
                 categories={categories}
                 redirectTo={redirectTo}
               />
