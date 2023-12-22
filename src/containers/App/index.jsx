@@ -45,7 +45,7 @@ const AppWrapper = styled.div`
 `;
 
 
-const App = ({ children, ...props }) => {
+const App = ({ children, isMobile, isTablet, isDesktop  }) => {
   const [isLoadedCurrentEvent, setIsLoadedCurrentEvent] = useState(false);
   const [isLoadingSpinner, setIsLoadingSpinner] = useState(false);
   const systemConfigs = useAppSelector(state => state.data.systemConfigs);
@@ -98,15 +98,13 @@ const App = ({ children, ...props }) => {
   }
 
   useEffect(() => {
-    let notificationInterval = null;
     getSystemConfigs();
     const systemConfigsListener = systemConfigsListenerFunc();
     return () => {
-      notificationInterval && clearInterval(notificationInterval);
       systemConfigsListener && systemConfigsListener.remove();
     }
     // eslint-disable-next-line
-  }, [props.isLogin]);
+  }, []);
 
   useEffect(() => {
     getCurrentEvent();
@@ -122,6 +120,9 @@ const App = ({ children, ...props }) => {
   return (
     <AppWrapper>
       <PublicLayoutWrapper
+        isMobile={isMobile}
+        isTablet={isTablet}
+        isDesktop={isDesktop}
         header={(
           <FrontUserHeader
             logoName={WEBSITE_NAME}

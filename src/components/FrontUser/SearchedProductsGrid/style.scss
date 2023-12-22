@@ -1,6 +1,8 @@
 @import 'scss/style';
 .searched-products-grid {
   &__wrapper {
+    max-height: calc(100vh - 65px);
+    overflow-x: hidden;
     & > div:first-of-type {
       flex-basis: 250px;
     }
