@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  deviceType: 'desktop',
+  isMobile: false,
+  isTablet: false,
+  isDesktop: true,
   products: [],
   systemConfigs: [],
 };

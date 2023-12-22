@@ -45,10 +45,13 @@ const AppWrapper = styled.div`
 `;
 
 
-const App = ({ children, isMobile, isTablet, isDesktop  }) => {
+const App = ({ children}) => {
   const [isLoadedCurrentEvent, setIsLoadedCurrentEvent] = useState(false);
   const [isLoadingSpinner, setIsLoadingSpinner] = useState(false);
   const systemConfigs = useAppSelector(state => state.data.systemConfigs);
+  const isMobile = useAppSelector(state => state.data.isMobile);
+  const isTablet = useAppSelector(state => state.data.isTablet);
+  const isDesktop = useAppSelector(state => state.data.isDesktop);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const currentRouter = usePathname();

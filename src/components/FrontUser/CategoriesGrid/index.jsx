@@ -1,9 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Button, Col, Row } from "antd";
+import { Col, Row } from "antd";
 import { cui, events } from "utils";
-import { useMediaQuery } from "react-responsive";
 import {
-  RESPONSIVE_MEDIAS,
   ROUTERS,
   SYSTEM_CONFIG_VALUE,
 } from "components/contants";

@@ -41,13 +41,9 @@ async function RootLayout({ children }: RootLayoutProps) {
       </header>
       <body>
         <StyledComponentsRegistry>
-          <StoreProvider>
+          <StoreProvider value={{ deviceType, isMobile, isTablet, isDesktop }}>
             <ConfigProvider theme={theme}>
-              <App
-                isMobile={isMobile}
-                isTablet={isTablet}
-                isDesktop={isDesktop}
-              >
+              <App>
                 {children}
               </App>
             </ConfigProvider>
