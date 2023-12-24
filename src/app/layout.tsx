@@ -5,9 +5,12 @@ import StoreProvider from 'store/Provider';
 import {ConfigProvider} from "antd";
 import theme from "./themeConfig";
 import App from "containers/App";
+import useMedia from "hooks/useMedia";
+import {FrontUserCategoriesService, FrontUserEventsService, SellerSystemService} from "services";
+import {globalStore} from "utils";
+
 import './globals.scss'
 import 'scss/style.scss';
-import useMedia from "hooks/useMedia";
 
 
 interface RootLayoutProps {
@@ -16,6 +19,36 @@ interface RootLayoutProps {
 
 async function RootLayout({ children }: RootLayoutProps) {
   const { deviceType, isMobile, isTablet, isDesktop } = useMedia();
+  const systemConfigs = await new Promise((resolve, reject) => {
+    SellerSystemService.getSystemConfigs({}, response => {
+      resolve(SellerSystemService.getActivatedSystemConfigs(response.items))
+    }, reject);
+    }
+  );
+  const categories = await new Promise((resolve, reject) => {
+    FrontUserCategoriesService.getCategoriesTree( resolve, reject);
+    }
+  );
+  const collections = await new Promise((resolve, reject) => {
+    FrontUserCategoriesService.getCollections( resolve, reject);
+    }
+  );
+  try {
+    const event = await new Promise((resolve, reject) => {
+        FrontUserEventsService.getCurrentEvent(resolve, reject);
+      }
+    );
+    globalStore.set({
+      event
+    });
+  } catch (e) {
+    globalStore.set({
+      event: {
+        discountPercent: 0
+      }
+    });
+  }
+
   return (
     <html lang="en">
       <header>
@@ -41,9 +74,9 @@ async function RootLayout({ children }: RootLayoutProps) {
       </header>
       <body>
         <StyledComponentsRegistry>
-          <StoreProvider value={{ deviceType, isMobile, isTablet, isDesktop }}>
+          <StoreProvider value={{ deviceType, isMobile, isTablet, isDesktop, systemConfigs, categories, collections }}>
             <ConfigProvider theme={theme}>
-              <App>
+              <App categories={categories} collections={collections}>
                 {children}
               </App>
             </ConfigProvider>
