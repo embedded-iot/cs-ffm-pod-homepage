@@ -7,6 +7,8 @@ const initialState = {
   isDesktop: true,
   products: [],
   systemConfigs: [],
+  categories: [],
+  collections: [],
 };
 
 export const storeSlice = createSlice({
