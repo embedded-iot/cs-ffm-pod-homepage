@@ -5,10 +5,8 @@ services:
     restart: always
     expose:
       - "3000"
-    environment:
-      NODE_ENV: $NODE_ENV
     healthcheck:
-      test: curl --fail http://127.0.0.1:3000/api/check_health || exit 1
+      test: curl --fail http://localhost:3000/api/check_health || exit 1
       interval: 30s
       retries: 5
       start_period: 5s
