@@ -1,7 +1,9 @@
-image: duchuyta/debian:bullseye-patch-1.0.1
+image: duchuyta/debian:bullseye-patch-1.0.2
 
 stages:
-  - deploy-stg
+  - build-dev
+  - build-prd
+  - deploy-dev
   - deploy-prd
 
 cache:
@@ -18,24 +20,58 @@ variables:
   DEV_SSH_USER: "root"
   DEV_SSH_IP: "139.162.6.19"
   DEV_SSH_PORT: "22"
+  
+  # Common
+  PROJECT: "cs-pod-home"
 
 
 before_script:
   - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
   - chmod 600 ~/.ssh/id_rsa
 
-deploy-stg:
-  stage: deploy-stg
+build-dev:
+  image: docker:20.10.16
+  stage: build-dev
   environment:
-    name: staging
+    name: development
+  services:
+    - docker:20.10.16-dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" -f docker/Dockerfile .
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+  only:
+    - develop
+
+build-prd:
+  image: docker:20.10.16
+  stage: build-prd
+  environment:
+    name: production
+  services:
+    - docker:20.10.16-dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" -f docker/Dockerfile.prod .
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+  only:
+    - master
+
+deploy-dev:
+  stage: deploy-dev
+  environment:
+    name: development
   variables:
     SSH_USER: $DEV_SSH_USER
     SSH_IP: $DEV_SSH_IP
     SSH_PORT: $DEV_SSH_PORT
   script:
-    - yarn install
-    - yarn run build-stg
-    - rsync -avzh --progress -e "ssh -p ${SSH_PORT}" build/ ${SSH_USER}@${SSH_IP}:/var/www/html/pod.zclouds.vn/
+    - export NODE_ENV="development" && envsubst < docker/docker-compose.yml > docker-compose.yml
+    - ssh -p $SSH_PORT ${SSH_USER}@${SSH_IP} "cd ~/.docker/${PROJECT} && mv docker-compose.yml backup/docker-compose.$(date +'%Y-%m-%d.%Hh%M').yml"
+    - scp -P $SSH_PORT docker-compose.yml ${SSH_USER}@${SSH_IP}:~/.docker/${PROJECT}/docker-compose.yml
+    - ssh -p $SSH_PORT ${SSH_USER}@${SSH_IP} "docker-rollout run --domain pod.zclouds.vn -f /root/.docker/${PROJECT}/docker-compose.yml"
   only:
     - develop
 
@@ -48,8 +84,10 @@ deploy-prd:
     SSH_IP: $PRD_SSH_IP
     SSH_PORT: $PRD_SSH_PORT
   script:
-    - yarn install
-    - yarn run build
-    - rsync -avzh --progress -e "ssh -p ${SSH_PORT}" build/ ${SSH_USER}@${SSH_IP}:/var/www/html/monsprints.com/
+    - export NODE_ENV="production" && envsubst < docker/docker-compose.yml > docker-compose.yml
+    - ssh -p $SSH_PORT ${SSH_USER}@${SSH_IP} "cd ~/.docker/${PROJECT} && mv docker-compose.yml backup/docker-compose.$(date +'%Y-%m-%d.%Hh%M').yml"
+    - scp -P $SSH_PORT docker-compose.yml ${SSH_USER}@${SSH_IP}:~/.docker/${PROJECT}/docker-compose.yml
+    - ssh -p $SSH_PORT ${SSH_USER}@${SSH_IP} "docker-rollout run --domain monsprints.com -f /root/.docker/${PROJECT}/docker-compose.yml"
   only:
     - master
+

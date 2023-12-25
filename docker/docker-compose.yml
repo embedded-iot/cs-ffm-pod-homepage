@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  nextjs:
+    image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+    restart: always
+    expose:
+      - "3000"
+    environment:
+      NODE_ENV: $NODE_ENV
+    healthcheck:
+      test: curl --fail http://127.0.0.1:8080/api/check_health || exit 1
+      interval: 30s
+      retries: 5
+      start_period: 5s
+      timeout: 10s
