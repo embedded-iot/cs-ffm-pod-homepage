@@ -7,8 +7,8 @@ COPY . /app
 RUN ls -la
 RUN pwd
 
-RUN npm install
-RUN npm run build-stg
+RUN yarn install
+RUN yarn run build-stg
 
 # ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
