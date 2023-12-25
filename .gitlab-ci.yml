@@ -22,7 +22,7 @@ variables:
   DEV_SSH_PORT: "22"
   
   # Common
-  PROJECT: "cs-pod-home"
+  PROJECT: "pod-home"
 
 
 before_script:
