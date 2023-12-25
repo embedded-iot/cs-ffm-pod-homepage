@@ -9,8 +9,7 @@ export const metadata = {
 };
 
 const Categories = async ({ params, searchParams }) => {
-  const { deviceType, isMobile, isTablet, isDesktop } = useMedia();
-  console.log(deviceType)
+  const { isMobile, isTablet, isDesktop } = useMedia();
   const requestParams = { ...params, ...searchParams };
   const productResponse = await new Promise((resolve, reject) => {
     const { sortBy, sortDirection } =

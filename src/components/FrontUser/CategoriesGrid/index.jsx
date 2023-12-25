@@ -1,9 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Button, Col, Row } from "antd";
+import { Col, Row } from "antd";
 import { cui, events } from "utils";
-import { useMediaQuery } from "react-responsive";
 import {
-  RESPONSIVE_MEDIAS,
   ROUTERS,
   SYSTEM_CONFIG_VALUE,
 } from "components/contants";
@@ -227,6 +225,8 @@ export default function CategoriesGrid({
             <TopButtonsFilters
               categoryId={categoryId}
               collectionId={collectionId}
+              categories={categories}
+              collections={collections}
               redirectTo={redirectTo}
             />
           </Col>
@@ -268,6 +268,7 @@ export default function CategoriesGrid({
               style={{ display: categories.length ? "block" : "none" }}
             >
               <TopCategoriesBox
+                isMobile={isMobile}
                 categories={categories}
                 redirectTo={redirectTo}
               />

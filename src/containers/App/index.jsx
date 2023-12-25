@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 
-import { events, globalStore } from 'utils';
+import { events } from 'utils';
 
 
 import PublicLayoutWrapper from 'components/Share/Layout';
@@ -27,14 +27,8 @@ import {
   WEBSITE_NAME,
 } from 'components/contants';
 
-import {
-  FrontUserEventsService,
-  SellerSystemService,
-} from 'services';
-
 import './style.scss';
-import {setGlobalStore} from "../../store/slices";
-import {useAppDispatch, useAppSelector} from "../../store/hooks";
+import {useAppSelector} from "../../store/hooks";
 import {useRouter} from "next/navigation";
 import {usePathname} from "next/dist/client/components/navigation";
 
@@ -45,48 +39,17 @@ const AppWrapper = styled.div`
 `;
 
 
-const App = ({ children, ...props }) => {
-  const [isLoadedCurrentEvent, setIsLoadedCurrentEvent] = useState(false);
+const App = ({ children, categories, collections, }) => {
   const [isLoadingSpinner, setIsLoadingSpinner] = useState(false);
   const systemConfigs = useAppSelector(state => state.data.systemConfigs);
-  const dispatch = useAppDispatch();
+  const isMobile = useAppSelector(state => state.data.isMobile);
+  const isTablet = useAppSelector(state => state.data.isTablet);
+  const isDesktop = useAppSelector(state => state.data.isDesktop);
   const router = useRouter();
   const currentRouter = usePathname();
 
   const redirectTo = path => {
     router.push(path);
-  }
-
-  const getCurrentEvent = () => {
-    FrontUserEventsService.getCurrentEvent((response) => {
-      globalStore.set({
-        event: response
-      });
-      setIsLoadedCurrentEvent(true);
-    } , () => {
-      globalStore.set({
-        event: {
-          discountPercent: 0
-        }
-      });
-      setIsLoadedCurrentEvent(true);
-    });
-  }
-
-  const getSystemConfigs = () => {
-    SellerSystemService.getSystemConfigs({}, response => {
-      dispatch(setGlobalStore({
-        systemConfigs: SellerSystemService.getActivatedSystemConfigs(response.items),
-      }));
-    }, () => {})
-  }
-
-  const systemConfigsListenerFunc = () => {
-    let listener = null;
-    listener = events.subscribe("SYSTEM_CONFIGS_LISTENER", () => {
-      getSystemConfigs()
-    });
-    return listener;
   }
 
   const spinnerListenerFunc = () => {
@@ -97,19 +60,8 @@ const App = ({ children, ...props }) => {
     return statusListener;
   }
 
-  useEffect(() => {
-    let notificationInterval = null;
-    getSystemConfigs();
-    const systemConfigsListener = systemConfigsListenerFunc();
-    return () => {
-      notificationInterval && clearInterval(notificationInterval);
-      systemConfigsListener && systemConfigsListener.remove();
-    }
-    // eslint-disable-next-line
-  }, [props.isLogin]);
 
   useEffect(() => {
-    getCurrentEvent();
     const spinnerListener = spinnerListenerFunc();
     return () => {
       spinnerListener && spinnerListener.remove();
@@ -117,16 +69,20 @@ const App = ({ children, ...props }) => {
     // eslint-disable-next-line
   }, []);
   const selectedRouters = [currentRouter];
-  // if (!isLoadedCurrentEvent) return null; @todo load event is missing
 
   return (
     <AppWrapper>
       <PublicLayoutWrapper
+        isMobile={isMobile}
+        isTablet={isTablet}
+        isDesktop={isDesktop}
         header={(
           <FrontUserHeader
             logoName={WEBSITE_NAME}
             sider={(
               <FrontUserSider
+                categories={categories}
+                collections={collections}
                 selectedRouters={selectedRouters}
                 redirectTo={redirectTo}
               />

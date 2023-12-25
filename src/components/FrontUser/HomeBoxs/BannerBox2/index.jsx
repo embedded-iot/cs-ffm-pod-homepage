@@ -5,13 +5,11 @@ import aoImg from 'public/images/home/ao.png';
 import capImg from 'public/images/home/cap.png';
 import arrowIcon from 'public/images/home/arrow_right_long_light.svg';
 import { Col, Row } from 'antd';
-import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
-import { useMediaQuery } from 'react-responsive';
+import { ROUTERS } from 'components/contants';
 import './style.scss';
 import Icon from "../../../Common/Icon";
 
-export default function BannerBox2({ customClass, redirectTo }) {
-  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+export default function BannerBox2({ isMobile, customClass, redirectTo }) {
   return (
     <div className={`banner-box-2__wrapper ${customClass} ${isMobile && 'banner-box-2__wrapper--mobile'}`}>
       <Row>

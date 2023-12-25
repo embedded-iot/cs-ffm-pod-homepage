@@ -1,43 +1,36 @@
 import React, {useState, useEffect, useMemo} from 'react';
-import {AdminCollectionsService, FrontUserCategoriesService} from 'services';
 import {ROUTERS} from "components/contants";
 import OptionsButtonsFilter from "components/FrontUser/CategoriesGrid/FiltersDrawerBox/OptionsButtonsFilter/index.jsx";
 import "./style.scss";
 import {SearchOutlined} from "@ant-design/icons";
 import {events} from "utils";
 
-export default function TopButtonsFilters({ className, redirectTo = () => {}, successCallback = () => {}, categoryId = '', collectionId = '' }) {
-  const [categories, setCategories] = useState([]);
-  const [collections, setCollections] = useState([]);
+const transformFilterOption = (item, key) => {
+  return {
+    ...item,
+    key,
+    label: item.name,
+    value: item.id,
+    child: (item.child || []).map((sub => transformFilterOption(sub, key)))
+  }
+}
+
+export default function TopButtonsFilters({ categories: defaultCategories, collections: defaultCollections, className, redirectTo = () => {}, successCallback = () => {}, categoryId = '', collectionId = '' }) {
+  const categories = useMemo(() => (defaultCategories || []).map((category) => transformFilterOption(category, 'category')), [defaultCategories]);
+  const collections = useMemo(() => (defaultCollections || []).map((collection) => transformFilterOption(collection, 'collection')), [defaultCollections]);
   const [selectedCategory, setSelectedCategory] = useState(categoryId);
   const [selectedCollection, setSelectedCollection] = useState(collectionId);
-  const transformFilterOption = (item, key) => {
-    return {
-      ...item,
-      key,
-      label: item.name,
-      value: item.id,
-      child: (item.child || []).map((sub => transformFilterOption(sub, key)))
-    }
-  }
-  const getCategoriesFilter = () => {
-    FrontUserCategoriesService.getCategoriesTree(response => {
-      setCategories(response.map((category) => transformFilterOption(category, 'category')));
-    }, () => {})
-  }
 
-  const getCollectionsOptions = () => {
-    FrontUserCategoriesService.getCollections(response => {
-      setCollections(response.map((collection) => transformFilterOption(collection, 'collection')));
-    }, () => {
-    })
-  }
 
   const onSelectCategoryFilter = (category) => {
     setSelectedCategory(category.value);
     setSelectedCollection('');
     const { categorySlug, categoryId } = category;
-    redirectTo(ROUTERS.FRONT_USER_ALL_PRODUCTS + `/category/${categorySlug}/${categoryId}`);
+    if (categoryId) {
+      redirectTo(ROUTERS.FRONT_USER_ALL_PRODUCTS + `/category/${categorySlug}/${categoryId}`);
+    } else {
+      redirectTo(ROUTERS.FRONT_USER_ALL_PRODUCTS);
+    }
   }
   const onSelectCollectionFilter = (collection) => {
     setSelectedCategory('');
@@ -48,15 +41,6 @@ export default function TopButtonsFilters({ className, redirectTo = () => {}, su
   const goAllProducts = () => {
     redirectTo(ROUTERS.FRONT_USER_ALL_PRODUCTS);
   }
-
-  useEffect(() => {
-    getCategoriesFilter();
-    getCollectionsOptions();
-  }, []);
-
-  useEffect(() => {
-    successCallback(categories);
-  }, [categories]);
 
   useEffect(() => {
     setSelectedCategory(categoryId);
@@ -70,6 +54,14 @@ export default function TopButtonsFilters({ className, redirectTo = () => {}, su
     return selectedCategory || selectedCollection || '';
   }, [selectedCategory, selectedCollection])
 
+  const findCategoryOptionsParent = (categoriesOptions = [], selectedCategoryValue) => {
+    for (let categoryIndex = 0; categoryIndex < categoriesOptions.length; categoryIndex++) {
+      if ((categoriesOptions[categoryIndex]?.child || []).find(subCategory => subCategory.value === selectedCategoryValue)) {
+        return categoriesOptions[categoryIndex];
+      }
+    }
+    return null;
+  }
   const findCategoriesOptions = (categoriesOptions = [], selectedCategoryValue) => {
     for (let categoryIndex = 0; categoryIndex < categoriesOptions.length; categoryIndex++) {
       if (categoriesOptions[categoryIndex].value === selectedCategoryValue) {
@@ -88,10 +80,11 @@ export default function TopButtonsFilters({ className, redirectTo = () => {}, su
       { label: 'All', value: '' },
     ]
     if (categoryId) {
+      const selectedCategory = findCategoryOptionsParent(categories, categoryId);
       const categoriesOptions = findCategoriesOptions(categories, categoryId);
       return  [
         { label: <SearchOutlined />, value: 'search' },
-        { label: 'All', value: categoriesOptions?.length && categoriesOptions[0].parentId || '', key: 'category' }
+        { ...(selectedCategory || {}), label: 'All', value: categoriesOptions?.length && categoriesOptions[0].parentId || '', key: 'category' }
         , ...categoriesOptions]
     } else if (collectionId) {
       return [...defaultOptions, ...collections]
@@ -110,9 +103,7 @@ export default function TopButtonsFilters({ className, redirectTo = () => {}, su
         if (selectedOption.key === 'category') {
           onSelectCategoryFilter(selectedFilter)
         } else if (selectedOption.key === 'collection') {
-          {
-            onSelectCollectionFilter(selectedFilter)
-          }
+          onSelectCollectionFilter(selectedFilter)
         }
       }
     }

@@ -10,8 +10,7 @@ import { useMediaQuery } from 'react-responsive';
 import './style.scss';
 import Icon from 'components/Common/Icon';
 
-export default function BannerBox1({ customClass, redirectTo }) {
-  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+export default function BannerBox1({ isMobile, customClass, redirectTo }) {
   return (
     <div className={`banner-box-1__wrapper`}>
       <Row gutter={isMobile ? [16, 16] : [24, 24]}>
